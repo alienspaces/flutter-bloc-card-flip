@@ -10,18 +10,11 @@ abstract class CardRepository {
 class FakeCardRepository implements CardRepository {
   @override
   Future<CardModel> fetchCard() {
-    // Simulate network delay
-    return Future.delayed(
-      Duration(seconds: 1),
-      () {
-        final random = Random();
-
-        // Return "fetched" card
-        return CardModel(
-          cardNumber: random.nextInt(100),
-        );
-      },
+    final random = Random();
+    var card = CardModel(
+      cardNumber: random.nextInt(100),
     );
+    return Future.value(card);
   }
 }
 

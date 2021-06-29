@@ -7,7 +7,13 @@ import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
 import 'package:flutter_bloc_exploration/data/card_repository.dart';
 import 'package:flutter_bloc_exploration/pages/card_page.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // Initialise logger
+  initLogger();
+
+  // Run application
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   final log = getLogger('MyApp');

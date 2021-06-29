@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/widgets/flip_card.dart';
+import 'package:flutter_bloc_exploration/widgets/flip_card_button.dart';
 import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
 
 // Card search page is child of provider
@@ -76,23 +77,5 @@ class _CardSearchPageState extends State<CardSearchPage> {
         FlipCardButtonWidget(),
       ],
     );
-  }
-}
-
-class FlipCardButtonWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50),
-      child: ElevatedButton(
-        onPressed: () => flipCard(context),
-        child: Text('Flip It!'),
-      ),
-    );
-  }
-
-  void flipCard(BuildContext context) {
-    final cardCubit = BlocProvider.of<CardCubit>(context);
-    cardCubit.getCard();
   }
 }

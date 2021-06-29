@@ -42,14 +42,14 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
   }
 
   void _onChange(BuildContext context, CardState state) {
-    final log = getLogger('_onChange');
+    final log = getLogger('FlipCardWidget - _onChange');
     log.info('Changed!');
   }
 
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('build');
-    log.info('Building!');
+    final log = getLogger('FlipCardWidget - build');
+    log.info('Building..');
 
     return BlocConsumer<CardCubit, CardState>(
       listenWhen: (previousState, state) {
@@ -62,28 +62,25 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
       listener: (context, state) => _onChange,
       builder: (BuildContext context, CardState state) {
         return Container(
-          child: GestureDetector(
-            child: FlipCard(
-              flipOnTouch: false,
-              front: Stack(
-                children: <Widget>[
-                  Container(
-                    child: Text(state is CardFlipped ? '${state.card.cardNumber}' : ''),
-                  ),
-                  Container(
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        child: getCardBackImage()),
-                  ),
-                ],
-              ),
-              back: Container(
-                child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    child: getCardFrontImage()),
-              ),
-              controller: controller,
+          child: FlipCard(
+            flipOnTouch: false,
+            front: Stack(
+              children: <Widget>[
+                Container(
+                  child: Text(state is CardFlipped ? '${state.card.cardNumber}' : ''),
+                ),
+                Container(
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      child: getCardBackImage()),
+                ),
+              ],
             ),
+            back: Container(
+              child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(10)), child: getCardFrontImage()),
+            ),
+            controller: controller,
           ),
         );
       },
