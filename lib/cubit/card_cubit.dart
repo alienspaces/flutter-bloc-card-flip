@@ -11,20 +11,34 @@ part 'card_state.dart';
 
 class CardCubit extends Cubit<CardState> {
   final CardRepository _cardRepository;
+  // late final CardModel card;
+  CardModel? card;
+  bool cardFlipped = false;
 
-  CardCubit(this._cardRepository) : super(CardInitial());
+  CardCubit(this._cardRepository) : super(CardInitial()) {
+    this.card = _cardRepository.create();
+  }
 
   Future<void> flipCard() async {
     final log = getLogger('CardCubit - flipCard');
     try {
       log.info('Emitting card flipping');
-      emit(CardFlipping());
+      emit(CardFlipping(card!));
       log.info('Emitted card flipping');
-      log.info('Fetching card..');
-      final card = await _cardRepository.fetchCard();
-      log.info('Emitting card flipped');
-      emit(CardFlipped(card));
-      log.info('Emitted card flipped');
+      if (cardFlipped) {
+        log.info('Emitting card flipped');
+        emit(CardUnflipped(card!));
+        log.info('Emitted card flipped');
+        cardFlipped = false;
+      } else {
+        log.info('Fetching card..');
+        // Change card
+        card = _cardRepository.create();
+        log.info('Emitting card flipped');
+        emit(CardFlipped(card!));
+        log.info('Emitted card flipped');
+        cardFlipped = true;
+      }
     } on NetworkException {
       emit(CardError("Couldn't fetch card"));
     }

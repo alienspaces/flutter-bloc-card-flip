@@ -54,21 +54,21 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
     return BlocConsumer<CardCubit, CardState>(
       listenWhen: (previousState, state) {
         log.info('Listen when called');
-        if (state is CardFlipping) {
+        if (state is CardFlipped || state is CardUnflipped) {
           controller!.toggleCard();
         }
         return true;
       },
       listener: (context, state) => _onChange,
       builder: (BuildContext context, CardState state) {
+        log.info(
+          'Builder called cardNumber >${state is CardFlipped ? '${state.card.cardNumber}' : ''}<',
+        );
         return Container(
           child: FlipCard(
             flipOnTouch: false,
             front: Stack(
               children: <Widget>[
-                Container(
-                  child: Text(state is CardFlipped ? '${state.card.cardNumber}' : ''),
-                ),
                 Container(
                   child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -76,9 +76,29 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
                 ),
               ],
             ),
-            back: Container(
-              child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(10)), child: getCardFrontImage()),
+            back: Stack(
+              children: <Widget>[
+                Container(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    child: getCardFrontImage(),
+                  ),
+                ),
+                Container(
+                  child: Positioned(
+                    right: 10,
+                    bottom: 4,
+                    child: Text(
+                      state is CardFlipped
+                          ? '${state.card.cardNumber}'
+                          : state is CardUnflipped
+                              ? '${state.card.cardNumber}'
+                              : '',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                  ),
+                ),
+              ],
             ),
             controller: controller,
           ),

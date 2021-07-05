@@ -13,10 +13,19 @@ class CardInitial extends CardState {
 }
 
 class CardFlipping extends CardState {
-  const CardFlipping();
+  final CardModel card;
+  const CardFlipping(this.card);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [card];
+}
+
+class CardUnflipped extends CardState {
+  final CardModel card;
+  const CardUnflipped(this.card);
+
+  @override
+  List<Object> get props => [card];
 }
 
 class CardFlipped extends CardState {

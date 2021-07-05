@@ -4,17 +4,17 @@ import 'model/card.dart';
 
 abstract class CardRepository {
   /// Throws [NetworkException].
-  Future<CardModel> fetchCard();
+  CardModel create();
 }
 
 class FakeCardRepository implements CardRepository {
   @override
-  Future<CardModel> fetchCard() {
+  CardModel create() {
     final random = Random();
     var card = CardModel(
       cardNumber: random.nextInt(100),
     );
-    return Future.value(card);
+    return card;
   }
 }
 

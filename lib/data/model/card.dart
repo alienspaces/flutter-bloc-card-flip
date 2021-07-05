@@ -1,5 +1,6 @@
-// TODO: Test whether equatable is going to work here.
-class CardModel {
+import 'package:equatable/equatable.dart';
+
+class CardModel extends Equatable {
   final int cardNumber;
 
   CardModel({
@@ -7,12 +8,5 @@ class CardModel {
   });
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is CardModel && o.cardNumber == cardNumber;
-  }
-
-  @override
-  int get hashCode => cardNumber.hashCode;
+  List<Object> get props => [cardNumber];
 }

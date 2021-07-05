@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/widgets/flip_card.dart';
 import 'package:flutter_bloc_exploration/widgets/flip_card_button.dart';
-import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
 
 // Card search page is child of provider
 class CardSearchPage extends StatefulWidget {
@@ -22,60 +20,14 @@ class _CardSearchPageState extends State<CardSearchPage> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
-        // Bloc consumer
-        child: BlocConsumer<CardCubit, CardState>(
-          listener: (context, state) {
-            if (state is CardError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
-              );
-            }
-          },
-          builder: (context, state) {
-            if (state is CardInitial) {
-              return buildInitial();
-            } else if (state is CardFlipping) {
-              return buildFlipping();
-            } else if (state is CardFlipped) {
-              return buildFlipped();
-            } else {
-              return buildInitial();
-            }
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            FlipCardWidget(),
+            FlipCardButtonWidget(),
+          ],
         ),
       ),
-    );
-  }
-
-  Widget buildInitial() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        FlipCardWidget(),
-        FlipCardButtonWidget(),
-      ],
-    );
-  }
-
-  Widget buildFlipping() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        FlipCardWidget(),
-        FlipCardButtonWidget(),
-      ],
-    );
-  }
-
-  Column buildFlipped() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        FlipCardWidget(),
-        FlipCardButtonWidget(),
-      ],
     );
   }
 }
