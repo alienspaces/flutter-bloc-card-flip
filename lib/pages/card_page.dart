@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Application packages
-import 'package:flutter_bloc_exploration/widgets/flip_card.dart';
-import 'package:flutter_bloc_exploration/widgets/flip_card_button.dart';
+import 'package:flutter_bloc_exploration/widgets/card.dart';
 
 // Card search page is child of provider
 class CardSearchPage extends StatefulWidget {
@@ -20,11 +19,11 @@ class _CardSearchPageState extends State<CardSearchPage> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            FlipCardWidget(),
-            FlipCardButtonWidget(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CardWidget(),
+            CardWidget(),
           ],
         ),
       ),
