@@ -19,11 +19,22 @@ class _CardSearchPageState extends State<CardSearchPage> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
           children: [
-            CardWidget(),
-            CardWidget(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CardWidget(),
+                CardWidget(),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CardWidget(),
+                CardWidget(),
+              ],
+            ),
           ],
         ),
       ),

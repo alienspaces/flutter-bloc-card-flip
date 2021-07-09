@@ -1,3 +1,4 @@
+import 'package:vector_math/vector_math.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +9,11 @@ import 'package:flutter_bloc_exploration/logger.dart';
 import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
 
 class FlipCardWidget extends StatefulWidget {
+  final Vector2 dimensions;
+
   FlipCardWidget({
     Key? key,
+    required this.dimensions,
   }) : super(key: key);
 
   @override
@@ -46,6 +50,15 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
     log.info('Changed!');
   }
 
+  void _onTap(BuildContext context, CardState state) {
+    final log = getLogger('FlipCardButtonWidget - flipCard');
+    log.info('Pressed flip');
+    if (state is CardUnflipped) {
+      final cardCubit = BlocProvider.of<CardCubit>(context);
+      cardCubit.flipCard();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final log = getLogger('FlipCardWidget - build');
@@ -65,42 +78,47 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
           'Builder called cardNumber >${state is CardFlipped ? '${state.card.cardNumber}' : ''}<',
         );
         return Container(
-          child: FlipCard(
-            flipOnTouch: false,
-            front: Stack(
-              children: <Widget>[
-                Container(
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      child: getCardBackImage()),
-                ),
-              ],
-            ),
-            back: Stack(
-              children: <Widget>[
-                Container(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    child: getCardFrontImage(),
+          width: widget.dimensions.x,
+          height: widget.dimensions.y,
+          child: GestureDetector(
+            onTap: () => _onTap(context, state),
+            child: FlipCard(
+              flipOnTouch: false,
+              front: Stack(
+                children: <Widget>[
+                  Container(
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        child: getCardBackImage()),
                   ),
-                ),
-                Container(
-                  child: Positioned(
-                    right: 10,
-                    bottom: 4,
-                    child: Text(
-                      state is CardFlipped
-                          ? '${state.card.cardNumber}'
-                          : state is CardUnflipped
-                              ? '${state.card.cardNumber}'
-                              : '',
-                      style: Theme.of(context).textTheme.headline4,
+                ],
+              ),
+              back: Stack(
+                children: <Widget>[
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      child: getCardFrontImage(),
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    child: Positioned(
+                      right: 10,
+                      bottom: 4,
+                      child: Text(
+                        state is CardFlipped
+                            ? '${state.card.cardNumber}'
+                            : state is CardUnflipped
+                                ? '${state.card.cardNumber}'
+                                : '',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              controller: controller,
             ),
-            controller: controller,
           ),
         );
       },

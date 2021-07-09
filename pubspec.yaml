@@ -41,6 +41,10 @@ dependencies:
   # https://pub.dev/packages/equatable
   equatable: 2.0.3 
 
+  # A Vector Math library for 2D and 3D applications.
+  # https://pub.dev/packages/vector_math
+  vector_math: 2.1.0
+
   # A component that provides flip card animation. It could be used for 
   # hide and show details of a product.
   # https://pub.dev/packages/flip_card
