@@ -1,4 +1,3 @@
-import 'package:vector_math/vector_math.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +8,8 @@ import 'package:flutter_bloc_exploration/logger.dart';
 import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
 
 class FlipCardWidget extends StatefulWidget {
-  final Vector2 dimensions;
-
   FlipCardWidget({
     Key? key,
-    required this.dimensions,
   }) : super(key: key);
 
   @override
@@ -78,8 +74,6 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
           'Builder called cardNumber >${state is CardFlipped ? '${state.card.cardNumber}' : ''}<',
         );
         return Container(
-          width: widget.dimensions.x,
-          height: widget.dimensions.y,
           child: GestureDetector(
             onTap: () => _onTap(context, state),
             child: FlipCard(
