@@ -1,11 +1,11 @@
 {
-    "name": "flutter_bloc_exploration",
-    "short_name": "flutter_bloc_exploration",
+    "name": "fAlien Spaces - Flutter BloC Card Flip",
+    "short_name": "Alien Spaces - Flutter BloC Card Flip",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Alien Spaces - Flutter BloC Card Flip",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
