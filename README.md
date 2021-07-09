@@ -6,4 +6,7 @@ Source code for [https://alienspaces.github.io/flutter-bloc-card-flip/](https://
 
 ## TODO
 
+- Implement a card "board" with various functions
+  - Shuffle deck (choose deck count)
+  - Game type (match cards, labyrinth)
 - GitlabCI pipeline (hell, why not..)
