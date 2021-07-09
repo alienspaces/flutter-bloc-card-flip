@@ -2,7 +2,8 @@
 
 Not really any other way to describe this, an exercise in exploring a card flipping action on a board of cards using Flutter BloC state management.
 
+Source code for [https://alienspaces.github.io/flutter-bloc-card-flip/]
+
 ## TODO
 
-- CI pipeline (hell, why not..)
-- Web build for preview (again, hell, why not..)
+- GitlabCI pipeline (hell, why not..)
