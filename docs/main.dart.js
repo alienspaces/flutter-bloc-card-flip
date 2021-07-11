@@ -8111,6 +8111,10 @@ tb:function tb(a,b,c){this.a=a
 this.b=b
 this.$ti=c},
 tL:function tL(){},
+pD:function pD(a){this.a=a},
+DK:function DK(a){this.a=null
+this.b=a
+this.c=null},
 kD:function kD(a,b){this.a=a
 this.b=b},
 ahZ:function(a,b,c,d){var s,r,q,p=Y.a8b(a,c)
@@ -14904,11 +14908,7 @@ _.c=null
 _.$ti=b},
 X5:function X5(a){this.a=a},
 X4:function X4(a,b){this.a=a
-this.b=b},
-pD:function pD(a){this.a=a},
-DK:function DK(a){this.a=null
-this.b=a
-this.c=null}},V={pl:function pl(a,b,c,d,e,f,g,h,i,j,k,l,m,n){var _=this
+this.b=b}},V={pl:function pl(a,b,c,d,e,f,g,h,i,j,k,l,m,n){var _=this
 _.a=a
 _.b=b
 _.c=c
@@ -49473,14 +49473,14 @@ $S:325}
 F.x7.prototype={
 N:function(a,b){var s=null
 this.c.bD(C.v,"Building..",s,s)
-return new S.r3(new O.pD(s),"Flutter BloC Card Flip",s)}}
-O.pD.prototype={
-an:function(){return new O.DK(C.l)}}
-O.DK.prototype={
-N:function(a,b){var s,r=null,q=F.eZ("CardSearchPage - build")
+return new S.r3(new Y.pD(s),"Flutter BloC Card Flip",s)}}
+Y.pD.prototype={
+an:function(){return new Y.DK(C.l)}}
+Y.DK.prototype={
+N:function(a,b){var s,r=null,q=F.eZ("CardFlipPage - build")
 $.jQ=q
 q.bD(C.v,"Building..",r,r)
-s=L.VS("Card Flipper",r,r,r)
+s=L.VS("Card Flip App",r,r,r)
 return new M.t7(new E.pk(s,new P.T(1/0,56),r),M.dN(C.a1,new M.qj(r),r,r,r,r,new V.b4(0,16,0,16),r),r)}}
 Z.qk.prototype={
 an:function(){return new Z.uD(C.l)}}
@@ -50959,9 +50959,9 @@ q(Y.yf,Y.Ei)
 r(Y.yf,[N.m,G.fH,A.U2,N.ax])
 r(N.m,[N.aN,N.ab,N.aU,N.al,N.Ge])
 r(N.aN,[E.wK,D.xU,K.xW,R.wT,R.wS,E.yQ,B.z7,R.mM,M.vA,K.ES,M.DC,K.CO,S.Ib,L.Gf,T.AO,T.zp,T.k3,M.iB,D.z_,L.mE,X.rc,X.FU,E.zW,U.n1,S.Ac,Q.BG,L.Gg,L.Cw,U.tQ,U.CQ,D.l9,F.x7,E.yN])
-r(N.ab,[E.qi,D.om,S.r3,E.pk,Z.rP,K.pA,R.uO,M.r2,G.za,M.t8,M.uE,M.t7,S.tT,U.fu,S.u3,S.v5,T.re,X.l8,L.km,U.qq,D.nh,T.kq,U.mF,L.qZ,K.rl,X.oN,X.rs,K.je,K.t4,T.oL,K.pb,O.m4,X.m5,D.jf,O.pD,Z.qk,M.qj,N.iF])
+r(N.ab,[E.qi,D.om,S.r3,E.pk,Z.rP,K.pA,R.uO,M.r2,G.za,M.t8,M.uE,M.t7,S.tT,U.fu,S.u3,S.v5,T.re,X.l8,L.km,U.qq,D.nh,T.kq,U.mF,L.qZ,K.rl,X.oN,X.rs,K.je,K.t4,T.oL,K.pb,O.m4,X.m5,D.jf,Y.pD,Z.qk,M.qj,N.iF])
 q(N.am,N.HM)
-r(N.am,[E.uC,D.on,S.v1,E.u9,Z.vl,K.we,R.wh,M.IW,G.oD,M.vx,M.wg,M.vy,S.wj,U.u6,S.Jo,S.IX,T.v8,L.ot,U.F6,D.rN,T.oz,U.IV,L.FE,K.vh,X.vj,X.Gm,K.J7,K.vu,T.lA,X.vB,K.u7,O.ub,X.uc,D.nv,O.DK,Z.uD,M.EW,N.EX])
+r(N.am,[E.uC,D.on,S.v1,E.u9,Z.vl,K.we,R.wh,M.IW,G.oD,M.vx,M.wg,M.vy,S.wj,U.u6,S.Jo,S.IX,T.v8,L.ot,U.F6,D.rN,T.oz,U.IV,L.FE,K.vh,X.vj,X.Gm,K.J7,K.vu,T.lA,X.vB,K.u7,O.ub,X.uc,D.nv,Y.DK,Z.uD,M.EW,N.EX])
 q(E.yO,E.uC)
 r(B.aA,[X.cm,B.FO,V.y_,N.HY,E.pU])
 r(X.cm,[G.Do,S.Dj,S.Dk,S.GT,S.Hi,S.E7,S.If,S.un,R.wd])

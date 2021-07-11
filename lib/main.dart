@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
-import 'package:flutter_bloc_exploration/pages/card_page.dart';
+import 'package:flutter_bloc_exploration/pages/card_flip_page.dart';
 
 void main() {
   // Initialise logger
@@ -20,7 +20,7 @@ class CardFlipApp extends StatelessWidget {
     log.info('Building..');
     return MaterialApp(
       title: 'Flutter BloC Card Flip',
-      home: CardSearchPage(),
+      home: CardFlipPage(),
     );
   }
 }
