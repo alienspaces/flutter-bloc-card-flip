@@ -70,7 +70,6 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
       listener: (context, state) => _onChange,
       builder: (BuildContext context, CardState state) {
         return Container(
-          color: Colors.red,
           child: GestureDetector(
             onTap: () => _onTap(context, state),
             child: FlipCard(
@@ -79,7 +78,6 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
                 fit: StackFit.expand,
                 children: <Widget>[
                   Container(
-                    color: Colors.blue,
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       child: getCardBackImage(),

@@ -35,20 +35,19 @@ class _FlipCardContainerState extends State<FlipCardContainer> {
       child: Container(
         width: widget.cardDimensions.x,
         height: widget.cardDimensions.y,
-        color: Colors.purple,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            // Card
             Container(
               padding: EdgeInsets.all(5),
-              color: Colors.greenAccent,
               height: cardHeight,
               width: widget.cardDimensions.x,
               child: FlipCardWidget(),
             ),
+            // Button
             Container(
               padding: EdgeInsets.all(5),
-              color: Colors.blueGrey,
               height: buttonHeight,
               width: widget.cardDimensions.x,
               child: FlipCardButtonWidget(),
