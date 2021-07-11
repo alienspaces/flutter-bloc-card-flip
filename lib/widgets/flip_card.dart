@@ -48,8 +48,8 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
 
   void _onTap(BuildContext context, CardState state) {
     final log = getLogger('FlipCardButtonWidget - flipCard');
-    log.info('Pressed flip');
-    if (state is CardUnflipped) {
+    log.info('Pressed flip >$state<');
+    if (state is CardUnflipped || state is CardInitial) {
       final cardCubit = BlocProvider.of<CardCubit>(context);
       cardCubit.flipCard();
     }
@@ -58,7 +58,6 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
   @override
   Widget build(BuildContext context) {
     final log = getLogger('FlipCardWidget - build');
-    // log.info('Building..');
 
     return BlocConsumer<CardCubit, CardState>(
       listenWhen: (previousState, state) {
@@ -70,9 +69,6 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
       },
       listener: (context, state) => _onChange,
       builder: (BuildContext context, CardState state) {
-        // log.info(
-        //   'Builder called cardNumber >${state is CardFlipped ? '${state.card.cardNumber}' : ''}<',
-        // );
         return Container(
           color: Colors.red,
           child: GestureDetector(

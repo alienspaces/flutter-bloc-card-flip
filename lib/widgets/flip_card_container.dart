@@ -9,18 +9,18 @@ import 'package:flutter_bloc_exploration/widgets/flip_card_button.dart';
 import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
 import 'package:flutter_bloc_exploration/data/card_repository.dart';
 
-class CardWidget extends StatefulWidget {
+class FlipCardContainer extends StatefulWidget {
   final vector.Vector2 cardDimensions;
-  const CardWidget({Key? key, required this.cardDimensions}) : super(key: key);
+  const FlipCardContainer({Key? key, required this.cardDimensions}) : super(key: key);
 
   @override
-  _CardWidgetState createState() => _CardWidgetState();
+  _FlipCardContainerState createState() => _FlipCardContainerState();
 }
 
-class _CardWidgetState extends State<CardWidget> {
+class _FlipCardContainerState extends State<FlipCardContainer> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardWidget');
+    final log = getLogger('FlipCardContainer');
 
     double cardHeight = (widget.cardDimensions.y * (85 / 100)).floorToDouble();
     double buttonHeight = (widget.cardDimensions.y - cardHeight).floorToDouble();

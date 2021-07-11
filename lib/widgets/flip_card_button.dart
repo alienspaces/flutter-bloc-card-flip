@@ -19,13 +19,23 @@ class FlipCardButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-      color: Colors.orange,
-      child: ElevatedButton(
-        onPressed: () => flipCard(context),
-        child: Text('Flip It!'),
-      ),
+    return BlocConsumer<CardCubit, CardState>(
+      listener: (context, state) => null,
+      builder: (BuildContext context, CardState state) {
+        String label = '';
+        if (state is CardInitial || state is CardUnflipped) {
+          label = 'Flip It!';
+        } else {
+          label = 'Unflip it!';
+        }
+
+        return Container(
+          child: ElevatedButton(
+            onPressed: () => flipCard(context),
+            child: Text(label),
+          ),
+        );
+      },
     );
   }
 }
