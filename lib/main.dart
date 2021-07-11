@@ -9,17 +9,17 @@ void main() {
   initLogger();
 
   // Run application
-  runApp(MyApp());
+  runApp(CardFlipApp());
 }
 
-class MyApp extends StatelessWidget {
-  final log = getLogger('MyApp');
+class CardFlipApp extends StatelessWidget {
+  final log = getLogger('CardFlipApp');
 
   @override
   Widget build(BuildContext context) {
     log.info('Building..');
     return MaterialApp(
-      title: 'Material App',
+      title: 'Flutter BloC Card Flip',
       home: CardSearchPage(),
     );
   }
