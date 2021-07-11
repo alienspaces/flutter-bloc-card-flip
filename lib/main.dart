@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
+import 'package:flutter_bloc_exploration/theme.dart';
 import 'package:flutter_bloc_exploration/navigation.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class CardFlipApp extends StatelessWidget {
     log.info('Building..');
     return MaterialApp(
       title: 'Flutter BloC Card Flip',
+      theme: getTheme(context),
       home: Navigation(),
     );
   }

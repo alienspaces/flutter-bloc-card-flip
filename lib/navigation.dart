@@ -14,26 +14,49 @@ class Navigation extends StatefulWidget {
   _NavigationState createState() => _NavigationState();
 }
 
+typedef NavigationCallback = void Function();
+
+class NavigationCallbacks {
+  final NavigationCallback openBoardPage;
+  final NavigationCallback openDealPage;
+  NavigationCallbacks({required this.openBoardPage, required this.openDealPage});
+}
+
 class _NavigationState extends State<Navigation> {
-  // Navigator pages
   List<String> _pageList = [CardBoardPage.pageName];
 
-  // Navigator pages
+  void openBoardPage() {
+    setState(() {
+      _pageList = [CardBoardPage.pageName];
+    });
+  }
+
+  void openDealPage() {
+    setState(() {
+      _pageList = [CardDealPage.pageName];
+    });
+  }
+
   List<Page<dynamic>> _pages(BuildContext context) {
     final log = getLogger('Navigation - _pages');
     log.info('Building pages..');
 
     List<Page<dynamic>> pages = [];
 
+    NavigationCallbacks callbacks = NavigationCallbacks(
+      openBoardPage: openBoardPage,
+      openDealPage: openDealPage,
+    );
+
     _pageList.forEach((pageName) {
       switch (pageName) {
         case CardBoardPage.pageName:
           log.info('Adding ${CardBoardPage.pageName}');
-          pages.add(CardBoardPage());
+          pages.add(CardBoardPage(callbacks: callbacks));
           break;
         case CardDealPage.pageName:
           log.info('Adding ${CardDealPage.pageName}');
-          pages.add(CardDealPage());
+          pages.add(CardDealPage(callbacks: callbacks));
           break;
         default:
         //
@@ -42,7 +65,6 @@ class _NavigationState extends State<Navigation> {
     return pages;
   }
 
-  // Handle specific pages being popped
   bool _onPopPage(Route<dynamic> route, dynamic result, BuildContext context) {
     final log = getLogger('Navigation - _onPopPage');
     log.info('Page name ${route.settings.name}');

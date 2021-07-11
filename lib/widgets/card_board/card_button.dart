@@ -33,6 +33,11 @@ class CardButtonWidget extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () => flipCard(context),
             child: Text(label),
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).colorScheme.secondary,
+              onPrimary: Theme.of(context).colorScheme.onSecondary,
+              onSurface: Theme.of(context).colorScheme.onSecondary,
+            ),
           ),
         );
       },
