@@ -58,7 +58,7 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
   @override
   Widget build(BuildContext context) {
     final log = getLogger('FlipCardWidget - build');
-    log.info('Building..');
+    // log.info('Building..');
 
     return BlocConsumer<CardCubit, CardState>(
       listenWhen: (previousState, state) {
@@ -70,24 +70,29 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
       },
       listener: (context, state) => _onChange,
       builder: (BuildContext context, CardState state) {
-        log.info(
-          'Builder called cardNumber >${state is CardFlipped ? '${state.card.cardNumber}' : ''}<',
-        );
+        // log.info(
+        //   'Builder called cardNumber >${state is CardFlipped ? '${state.card.cardNumber}' : ''}<',
+        // );
         return Container(
+          color: Colors.red,
           child: GestureDetector(
             onTap: () => _onTap(context, state),
             child: FlipCard(
               flipOnTouch: false,
               front: Stack(
+                fit: StackFit.expand,
                 children: <Widget>[
                   Container(
+                    color: Colors.blue,
                     child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        child: getCardBackImage()),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      child: getCardBackImage(),
+                    ),
                   ),
                 ],
               ),
               back: Stack(
+                fit: StackFit.expand,
                 children: <Widget>[
                   Container(
                     child: ClipRRect(

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math.dart' as vector;
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
@@ -9,7 +10,8 @@ import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
 import 'package:flutter_bloc_exploration/data/card_repository.dart';
 
 class CardWidget extends StatefulWidget {
-  const CardWidget({Key? key}) : super(key: key);
+  final vector.Vector2 cardDimensions;
+  const CardWidget({Key? key, required this.cardDimensions}) : super(key: key);
 
   @override
   _CardWidgetState createState() => _CardWidgetState();
@@ -20,23 +22,39 @@ class _CardWidgetState extends State<CardWidget> {
   Widget build(BuildContext context) {
     final log = getLogger('CardWidget');
 
+    double cardHeight = (widget.cardDimensions.y * (85 / 100)).floorToDouble();
+    double buttonHeight = (widget.cardDimensions.y - cardHeight).floorToDouble();
+
+    log.info('Dimensions width >${widget.cardDimensions.x}<');
+    log.info(
+      'Provided height >${widget.cardDimensions.y}< Adjusted height card >$cardHeight< button >$buttonHeight<',
+    );
+
     return BlocProvider(
       create: (context) => CardCubit(FakeCardRepository()),
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          log.info('Constraints width ${constraints.maxWidth}');
-          log.info('Constraints height ${constraints.maxHeight}');
-
-          return Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FlipCardWidget(),
-                FlipCardButtonWidget(),
-              ],
+      child: Container(
+        width: widget.cardDimensions.x,
+        height: widget.cardDimensions.y,
+        color: Colors.purple,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.all(5),
+              color: Colors.greenAccent,
+              height: cardHeight,
+              width: widget.cardDimensions.x,
+              child: FlipCardWidget(),
             ),
-          );
-        },
+            Container(
+              padding: EdgeInsets.all(5),
+              color: Colors.blueGrey,
+              height: buttonHeight,
+              width: widget.cardDimensions.x,
+              child: FlipCardButtonWidget(),
+            ),
+          ],
+        ),
       ),
     );
   }

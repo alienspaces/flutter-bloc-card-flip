@@ -19,13 +19,9 @@ class FlipCardButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final log = getLogger('FlipCardButtonWidget');
-
-    // log.info('Card button width = ${dimensions.x}');
-    // log.info('Card button height = ${dimensions.y}');
-
     return Container(
-      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+      // padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+      color: Colors.orange,
       child: ElevatedButton(
         onPressed: () => flipCard(context),
         child: Text('Flip It!'),
