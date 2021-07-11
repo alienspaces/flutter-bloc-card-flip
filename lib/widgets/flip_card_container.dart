@@ -22,6 +22,7 @@ class _FlipCardContainerState extends State<FlipCardContainer> {
   Widget build(BuildContext context) {
     final log = getLogger('FlipCardContainer');
 
+    // Provide the button with 15% of the vertical space
     double cardHeight = (widget.cardDimensions.y * (85 / 100)).floorToDouble();
     double buttonHeight = (widget.cardDimensions.y - cardHeight).floorToDouble();
 

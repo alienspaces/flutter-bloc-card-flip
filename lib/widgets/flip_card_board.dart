@@ -5,7 +5,7 @@ import 'package:vector_math/vector_math.dart';
 import 'package:flutter_bloc_exploration/logger.dart';
 import 'package:flutter_bloc_exploration/widgets/flip_card_container.dart';
 
-// Card search page is child of provider
+// The flip card board lays out a board of cards
 class FlipCardBoardWidget extends StatefulWidget {
   @override
   _FlipCardBoardWidgetState createState() => _FlipCardBoardWidgetState();
@@ -26,14 +26,14 @@ class _FlipCardBoardWidgetState extends State<FlipCardBoardWidget> {
 
         // Size this container according to the number of cards we want
         // to lay out within the available space.
-        int cards = 4;
-        int cardsAcross = cards ~/ 2;
-        int cardsDown = cards ~/ cardsAcross;
+        int cardsAcross = 3;
+        int cardsDown = 2;
 
         log.info('Cards across $cardsAcross');
         log.info('Cards down $cardsDown');
 
-        // Card width and height will be 2/5 and 3/5 respectively
+        // Card containers have an aspect ratio of 4:7 to fit a button that
+        // is given 15% of the available vertical space.
         double cardWidth = (constraints.maxWidth / cardsAcross).floorToDouble();
         double cardHeight = ((cardWidth / 4) * 7).floorToDouble();
 
@@ -54,28 +54,29 @@ class _FlipCardBoardWidgetState extends State<FlipCardBoardWidget> {
         log.info('Container width $containerWidth');
         log.info('Container height $containerHeight');
 
+        Widget _buildBoard() {
+          List<Widget> _columnWidgets = [];
+          for (var currRow = 0; currRow < cardsDown; currRow++) {
+            List<Widget> _rowWidgets = [];
+            for (var currCol = 0; currCol < cardsAcross; currCol++) {
+              _rowWidgets.add(FlipCardContainer(cardDimensions: Vector2(cardWidth, cardHeight)));
+            }
+            _columnWidgets.add(Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: _rowWidgets,
+            ));
+          }
+
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: _columnWidgets,
+          );
+        }
+
         return Container(
           width: containerWidth,
           height: containerHeight,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FlipCardContainer(cardDimensions: Vector2(cardWidth, cardHeight)),
-                  FlipCardContainer(cardDimensions: Vector2(cardWidth, cardHeight)),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FlipCardContainer(cardDimensions: Vector2(cardWidth, cardHeight)),
-                  FlipCardContainer(cardDimensions: Vector2(cardWidth, cardHeight)),
-                ],
-              ),
-            ],
-          ),
+          child: _buildBoard(),
         );
       }),
     );
