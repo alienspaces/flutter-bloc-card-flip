@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_exploration/logger.dart';
 import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
 
-class FlipCardButtonWidget extends StatelessWidget {
-  const FlipCardButtonWidget({
+class CardButtonWidget extends StatelessWidget {
+  const CardButtonWidget({
     Key? key,
   }) : super(key: key);
 
   void flipCard(BuildContext context) {
-    final log = getLogger('FlipCardButtonWidget - flipCard');
+    final log = getLogger('CardButtonWidget - flipCard');
     log.info('Pressed flip');
     final cardCubit = BlocProvider.of<CardCubit>(context);
     cardCubit.flipCard();

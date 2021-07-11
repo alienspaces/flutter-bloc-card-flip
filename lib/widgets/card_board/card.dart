@@ -7,16 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_exploration/logger.dart';
 import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
 
-class FlipCardWidget extends StatefulWidget {
-  FlipCardWidget({
+class CardWidget extends StatefulWidget {
+  CardWidget({
     Key? key,
   }) : super(key: key);
 
   @override
-  _FlipCardWidgetState createState() => _FlipCardWidgetState();
+  _CardWidgetState createState() => _CardWidgetState();
 }
 
-class _FlipCardWidgetState extends State<FlipCardWidget> {
+class _CardWidgetState extends State<CardWidget> {
   FlipCardController? controller;
 
   @override
@@ -42,7 +42,7 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
   }
 
   void _onChange(BuildContext context, CardState state) {
-    final log = getLogger('FlipCardWidget - _onChange');
+    final log = getLogger('CardWidget - _onChange');
     log.info('Changed!');
   }
 
@@ -57,7 +57,7 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('FlipCardWidget - build');
+    final log = getLogger('CardWidget - build');
 
     return BlocConsumer<CardCubit, CardState>(
       listenWhen: (previousState, state) {

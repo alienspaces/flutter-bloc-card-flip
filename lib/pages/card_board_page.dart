@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
 
 // Application packages
-import 'package:flutter_bloc_exploration/widgets/card_deal/card_deal.dart';
+import 'package:flutter_bloc_exploration/widgets/card_board/card_board.dart';
 import 'package:flutter_bloc_exploration/logger.dart';
 
-class CardDealPage extends Page {
-  static const String pageName = 'CardDealPage';
-  CardDealPage({LocalKey key = const ValueKey(CardDealPage.pageName), name = CardDealPage.pageName})
+class CardBoardPage extends Page {
+  static const String pageName = 'CardBoardPage';
+  CardBoardPage(
+      {LocalKey key = const ValueKey(CardBoardPage.pageName), name = CardBoardPage.pageName})
       : super(key: key, name: name);
 
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
       settings: this,
       builder: (BuildContext context) {
-        return CardDealScreen();
+        return CardBoardScreen();
       },
     );
   }
 }
 
-// Card search page is child of provider
-class CardDealScreen extends StatefulWidget {
-  static String pageName = 'CardDeal';
-
+// Card board
+class CardBoardScreen extends StatefulWidget {
   @override
-  _CardDealScreenState createState() => _CardDealScreenState();
+  _CardBoardScreenState createState() => _CardBoardScreenState();
 }
 
-class _CardDealScreenState extends State<CardDealScreen> {
+class _CardBoardScreenState extends State<CardBoardScreen> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardDealPage - build');
+    final log = getLogger('CardBoardPage - build');
     log.info('Building..');
 
     return Scaffold(
@@ -40,7 +39,7 @@ class _CardDealScreenState extends State<CardDealScreen> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
-        child: CardDealWidget(),
+        child: CardBoardWidget(),
       ),
     );
   }

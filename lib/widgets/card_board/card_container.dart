@@ -4,23 +4,23 @@ import 'package:vector_math/vector_math.dart' as vector;
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
-import 'package:flutter_bloc_exploration/widgets/flip_card.dart';
-import 'package:flutter_bloc_exploration/widgets/flip_card_button.dart';
 import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
 import 'package:flutter_bloc_exploration/data/card_repository.dart';
+import 'package:flutter_bloc_exploration/widgets/card_board/card.dart';
+import 'package:flutter_bloc_exploration/widgets/card_board/card_button.dart';
 
-class FlipCardContainer extends StatefulWidget {
+class CardContainer extends StatefulWidget {
   final vector.Vector2 cardDimensions;
-  const FlipCardContainer({Key? key, required this.cardDimensions}) : super(key: key);
+  const CardContainer({Key? key, required this.cardDimensions}) : super(key: key);
 
   @override
-  _FlipCardContainerState createState() => _FlipCardContainerState();
+  _CardContainerState createState() => _CardContainerState();
 }
 
-class _FlipCardContainerState extends State<FlipCardContainer> {
+class _CardContainerState extends State<CardContainer> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('FlipCardContainer');
+    final log = getLogger('CardContainer');
 
     // Provide the button with 15% of the vertical space
     double cardHeight = (widget.cardDimensions.y * (85 / 100)).floorToDouble();
@@ -44,14 +44,14 @@ class _FlipCardContainerState extends State<FlipCardContainer> {
               padding: EdgeInsets.all(5),
               height: cardHeight,
               width: widget.cardDimensions.x,
-              child: FlipCardWidget(),
+              child: CardWidget(),
             ),
             // Button
             Container(
               padding: EdgeInsets.all(5),
               height: buttonHeight,
               width: widget.cardDimensions.x,
-              child: FlipCardButtonWidget(),
+              child: CardButtonWidget(),
             ),
           ],
         ),

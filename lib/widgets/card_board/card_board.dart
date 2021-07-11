@@ -3,18 +3,18 @@ import 'package:vector_math/vector_math.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
-import 'package:flutter_bloc_exploration/widgets/flip_card_container.dart';
+import 'package:flutter_bloc_exploration/widgets/card_board/card_container.dart';
 
-// The flip card board lays out a board of cards
-class FlipCardBoardWidget extends StatefulWidget {
+// The card board lays out a board of cards
+class CardBoardWidget extends StatefulWidget {
   @override
-  _FlipCardBoardWidgetState createState() => _FlipCardBoardWidgetState();
+  _CardBoardWidgetState createState() => _CardBoardWidgetState();
 }
 
-class _FlipCardBoardWidgetState extends State<FlipCardBoardWidget> {
+class _CardBoardWidgetState extends State<CardBoardWidget> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('FlipCardBoardWidget - build');
+    final log = getLogger('CardBoardWidget - build');
     log.info('Building..');
 
     return Container(
@@ -59,14 +59,13 @@ class _FlipCardBoardWidgetState extends State<FlipCardBoardWidget> {
           for (var currRow = 0; currRow < cardsDown; currRow++) {
             List<Widget> _rowWidgets = [];
             for (var currCol = 0; currCol < cardsAcross; currCol++) {
-              _rowWidgets.add(FlipCardContainer(cardDimensions: Vector2(cardWidth, cardHeight)));
+              _rowWidgets.add(CardContainer(cardDimensions: Vector2(cardWidth, cardHeight)));
             }
             _columnWidgets.add(Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: _rowWidgets,
             ));
           }
-
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: _columnWidgets,
