@@ -70,47 +70,52 @@ class _CardWidgetState extends State<CardWidget> {
       listener: (context, state) => _onChange,
       builder: (BuildContext context, CardState state) {
         return Container(
-          child: GestureDetector(
-            onTap: () => _onTap(context, state),
-            child: FlipCard(
-              flipOnTouch: false,
-              front: Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  Container(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      child: getCardBackImage(),
-                    ),
-                  ),
-                ],
-              ),
-              back: Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  Container(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      child: getCardFrontImage(),
-                    ),
-                  ),
-                  Container(
-                    child: Positioned(
-                      right: 10,
-                      bottom: 4,
-                      child: Text(
-                        state is CardFlipped
-                            ? '${state.card.cardNumber}'
-                            : state is CardUnflipped
-                                ? '${state.card.cardNumber}'
-                                : '',
-                        style: Theme.of(context).textTheme.headline4,
+          child: MouseRegion(
+            cursor: state is CardUnflipped || state is CardInitial
+                ? SystemMouseCursors.click
+                : SystemMouseCursors.forbidden,
+            child: GestureDetector(
+              onTap: () => _onTap(context, state),
+              child: FlipCard(
+                flipOnTouch: false,
+                front: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        child: getCardBackImage(),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+                back: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        child: getCardFrontImage(),
+                      ),
+                    ),
+                    Container(
+                      child: Positioned(
+                        right: 10,
+                        bottom: 4,
+                        child: Text(
+                          state is CardFlipped
+                              ? '${state.card.cardNumber}'
+                              : state is CardUnflipped
+                                  ? '${state.card.cardNumber}'
+                                  : '',
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                controller: controller,
               ),
-              controller: controller,
             ),
           ),
         );

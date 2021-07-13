@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_exploration/navigation.dart';
 
 // Application packages
+import 'package:flutter_bloc_exploration/header.dart';
+import 'package:flutter_bloc_exploration/navigation.dart';
 import 'package:flutter_bloc_exploration/widgets/card_board/card_board.dart';
 import 'package:flutter_bloc_exploration/logger.dart';
 
@@ -47,34 +48,7 @@ class _CardBoardScreenState extends State<CardBoardScreen> {
     log.info('Building..');
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Card Flip App",
-          style: Theme.of(context).textTheme.headline4!.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-        ),
-        actions: [
-          ElevatedButton(
-            onPressed: widget.callbacks.openBoardPage,
-            child: Text(
-              'Open Board',
-              style: Theme.of(context).textTheme.headline6!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: widget.callbacks.openDealPage,
-            child: Text(
-              'Open Deal',
-              style: Theme.of(context).textTheme.headline6!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-            ),
-          ),
-        ],
-      ),
+      appBar: header(context, widget.callbacks),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
