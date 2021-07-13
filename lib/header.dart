@@ -12,22 +12,38 @@ AppBar header(BuildContext context, NavigationCallbacks callbacks) {
           ),
     ),
     actions: [
-      ElevatedButton(
-        onPressed: callbacks.openBoardPage,
-        child: Text(
-          'Open Board',
-          style: Theme.of(context).textTheme.headline6!.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
+      Container(
+        padding: EdgeInsets.fromLTRB(20, 0, 5, 0),
+        child: ElevatedButton(
+          onPressed: callbacks.openDealPage,
+          style: ElevatedButton.styleFrom(
+            primary: Theme.of(context).colorScheme.secondaryVariant,
+            onPrimary: Theme.of(context).colorScheme.onSecondary,
+            onSurface: Theme.of(context).colorScheme.onSecondary,
+          ),
+          child: Text(
+            'Deal Cards',
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+          ),
         ),
       ),
-      ElevatedButton(
-        onPressed: callbacks.openDealPage,
-        child: Text(
-          'Open Deal',
-          style: Theme.of(context).textTheme.headline6!.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
+      Container(
+        padding: EdgeInsets.fromLTRB(5, 0, 20, 0),
+        child: ElevatedButton(
+          onPressed: callbacks.openBoardPage,
+          style: ElevatedButton.styleFrom(
+            primary: Theme.of(context).colorScheme.secondaryVariant,
+            onPrimary: Theme.of(context).colorScheme.onSecondary,
+            onSurface: Theme.of(context).colorScheme.onSecondary,
+          ),
+          child: Text(
+            'Flip Cards',
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+          ),
         ),
       ),
     ],

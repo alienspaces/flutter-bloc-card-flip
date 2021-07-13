@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
+import 'package:flutter_bloc_exploration/widgets/card_deal/card_deck.dart';
+import 'package:flutter_bloc_exploration/widgets/card_deal/card_hand.dart';
 
 // The card board lays out a board of cards
 class CardDealWidget extends StatefulWidget {
@@ -28,16 +30,39 @@ class _CardDealWidgetState extends State<CardDealWidget> {
         log.info('Container width $containerWidth');
         log.info('Container height $containerHeight');
 
-        Widget _buildBoard() {
+        Widget _buildContent() {
           return Container(
-            child: Text('Dealer'),
+            width: containerWidth,
+            height: containerHeight,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 0,
+                  child: Container(
+                    color: Theme.of(context).colorScheme.surface,
+                    alignment: Alignment.topCenter,
+                    width: containerWidth,
+                    height: containerHeight / 2,
+                    child: CardHandWidget(),
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    color: Theme.of(context).colorScheme.surface,
+                    alignment: Alignment.bottomCenter,
+                    width: containerWidth,
+                    height: containerHeight / 2,
+                    child: CardDeckWidget(),
+                  ),
+                ),
+              ],
+            ),
           );
         }
 
         return Container(
-          width: containerWidth,
-          height: containerHeight,
-          child: _buildBoard(),
+          child: _buildContent(),
         );
       }),
     );

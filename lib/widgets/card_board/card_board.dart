@@ -54,7 +54,7 @@ class _CardBoardWidgetState extends State<CardBoardWidget> {
         log.info('Container width $containerWidth');
         log.info('Container height $containerHeight');
 
-        Widget _buildBoard() {
+        Widget _buildContent() {
           List<Widget> _columnWidgets = [];
           for (var currRow = 0; currRow < cardsDown; currRow++) {
             List<Widget> _rowWidgets = [];
@@ -75,7 +75,7 @@ class _CardBoardWidgetState extends State<CardBoardWidget> {
         return Container(
           width: containerWidth,
           height: containerHeight,
-          child: _buildBoard(),
+          child: _buildContent(),
         );
       }),
     );

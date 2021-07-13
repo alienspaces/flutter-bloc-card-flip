@@ -23,7 +23,7 @@ class NavigationCallbacks {
 }
 
 class _NavigationState extends State<Navigation> {
-  List<String> _pageList = [CardBoardPage.pageName];
+  List<String> _pageList = [CardDealPage.pageName];
 
   void openBoardPage() {
     setState(() {
