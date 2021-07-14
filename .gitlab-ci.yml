@@ -1,0 +1,17 @@
+image: cirrusci/flutter:stable
+
+stages:
+  - test
+  - build
+
+test-app:
+  stage: test
+  image: cirrusci/flutter:stable
+  script:
+    - flutter test
+
+build-app:
+  stage: build
+  image: cirrusci/flutter:stable
+  script:
+    - script/build-update-web
