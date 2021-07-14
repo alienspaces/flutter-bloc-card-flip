@@ -16,3 +16,5 @@ build-app:
   script:
     - script/build-update-web
     - git push
+  only:
+    - master
