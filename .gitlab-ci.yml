@@ -9,6 +9,9 @@ test-app:
   image: registry.gitlab.com/alienspaces/flutter-bloc-card-flip/cirrusci/flutter:stable
   script:
     - flutter test
+  only:
+    - develop
+    - master
 
 build-app:
   stage: build
@@ -17,6 +20,7 @@ build-app:
     - git config --global user.name "${GITLAB_USER_NAME}"
     - git config --global user.email "${GITLAB_USER_EMAIL}"
   script:
+    - git fetch
     - git checkout publish
     - git merge origin/master
     - script/build-update-web
