@@ -14,6 +14,7 @@ build-app:
   stage: build
   image: registry.gitlab.com/alienspaces/flutter-bloc-card-flip/cirrusci/flutter:stable
   script:
+    - git checkout master
     - script/build-update-web
     - git push
   only:
