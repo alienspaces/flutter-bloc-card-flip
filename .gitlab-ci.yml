@@ -13,9 +13,14 @@ test-app:
 build-app:
   stage: build
   image: registry.gitlab.com/alienspaces/flutter-bloc-card-flip/cirrusci/flutter:stable
+  before_script:
+    - git config --global user.name "${GITLAB_USER_NAME}"
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
   script:
-    - git checkout master
+    - git checkout publish
+    - git merge origin/master
     - script/build-update-web
-    - git push
+    - git push origin publish
+    - git push http://root:$ACCESS_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git HEAD:publish
   only:
     - master
