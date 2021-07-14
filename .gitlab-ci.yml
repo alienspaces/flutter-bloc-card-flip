@@ -1,4 +1,4 @@
-image: cirrusci/flutter:stable
+image: registry.gitlab.com/alienspaces/flutter-bloc-card-flip/cirrusci/flutter:stable
 
 stages:
   - test
@@ -6,13 +6,13 @@ stages:
 
 test-app:
   stage: test
-  image: cirrusci/flutter:stable
+  image: registry.gitlab.com/alienspaces/flutter-bloc-card-flip/cirrusci/flutter:stable
   script:
     - flutter test
 
 build-app:
   stage: build
-  image: cirrusci/flutter:stable
+  image: registry.gitlab.com/alienspaces/flutter-bloc-card-flip/cirrusci/flutter:stable
   script:
     - script/build-update-web
     - git push
