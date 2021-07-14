@@ -15,3 +15,4 @@ build-app:
   image: cirrusci/flutter:stable
   script:
     - script/build-update-web
+    - git push

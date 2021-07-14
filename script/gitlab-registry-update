@@ -1,0 +1,9 @@
+
+#!/usr/bin/env bash
+
+docker login registry.gitlab.com -u alienspaces@gmail.com -p $GITLAB_PERSONAL_TOKEN
+
+IMAGE="cirrusci/flutter:stable"
+docker pull $IMAGE
+docker tag $IMAGE registry.gitlab.com/alienspaces/flutter-bloc-card-flip/$IMAGE
+docker push registry.gitlab.com/alienspaces/flutter-bloc-card-flip/$IMAGE
