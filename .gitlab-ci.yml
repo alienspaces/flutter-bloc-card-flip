@@ -24,7 +24,6 @@ build-app:
     - git checkout publish
     - git merge origin/master
     - script/build-update-web
-    - git push origin publish
     - git push http://root:$ACCESS_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git HEAD:publish
   only:
     - master
