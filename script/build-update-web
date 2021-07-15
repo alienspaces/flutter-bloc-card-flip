@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# This scripts builds a web version of the application and 
-# updates the `docs` directory with the result.
-flutter channel stable
-
 # Build the web version
 flutter build web
 
