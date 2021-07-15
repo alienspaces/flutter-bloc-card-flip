@@ -8,7 +8,9 @@ Not really any other way to describe this, an exercise in exploring a card flipp
 
 ## CI Flow
 
-All merges to the `master` branch run through automated tests and then an automated web build and push to the `publish` branch, where the above mentioned web application is directly sourced! Push from local with automated production deployment as you would expect!
+All merges to the `master` branch run through automated tests followed by an automated web build and push to the `publish` branch which contains the current source for the above mentioned web application!
+
+Push from local with automated production deployment as you would expect!
 
 ## TODO
 
