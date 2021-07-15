@@ -6,7 +6,6 @@ stages:
 
 test-app:
   stage: test
-  image: registry.gitlab.com/alienspaces/flutter-bloc-card-flip/cirrusci/flutter:stable
   script:
     - flutter test
   only:
@@ -15,7 +14,6 @@ test-app:
 
 build-app:
   stage: build
-  image: registry.gitlab.com/alienspaces/flutter-bloc-card-flip/cirrusci/flutter:stable
   before_script:
     - git config --global user.name "${GITLAB_USER_NAME}"
     - git config --global user.email "${GITLAB_USER_EMAIL}"
