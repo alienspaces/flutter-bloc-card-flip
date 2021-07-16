@@ -13,7 +13,7 @@ AppBar header(BuildContext context, NavigationCallbacks callbacks) {
     ),
     actions: [
       Container(
-        padding: EdgeInsets.fromLTRB(20, 0, 5, 0),
+        padding: EdgeInsets.fromLTRB(20, 10, 5, 0),
         child: ElevatedButton(
           onPressed: callbacks.openDealPage,
           style: ElevatedButton.styleFrom(
@@ -30,7 +30,7 @@ AppBar header(BuildContext context, NavigationCallbacks callbacks) {
         ),
       ),
       Container(
-        padding: EdgeInsets.fromLTRB(5, 0, 20, 0),
+        padding: EdgeInsets.fromLTRB(5, 10, 20, 0),
         child: ElevatedButton(
           onPressed: callbacks.openBoardPage,
           style: ElevatedButton.styleFrom(
