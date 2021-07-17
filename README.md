@@ -1,6 +1,6 @@
 # Flutter Bloc Card Flip
 
-Not really any other way to describe this, an exercise in exploring a card flipping action on a board of cards using Flutter BloC state management.
+An exploration of game card dealing and flipping actions using Flutter BloC state management.
 
 ## Web Application
 
