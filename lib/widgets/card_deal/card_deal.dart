@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_exploration/logger.dart';
 import 'package:flutter_bloc_exploration/widgets/card_deal/card_deck.dart';
 import 'package:flutter_bloc_exploration/widgets/card_deal/card_hand.dart';
+import 'package:flutter_bloc_exploration/widgets/card_deal/card.dart';
 
 // The card board lays out a board of cards
 class CardDealWidget extends StatefulWidget {
@@ -56,6 +57,17 @@ class _CardDealWidgetState extends State<CardDealWidget> {
                     child: CardDeckWidget(),
                   ),
                 ),
+                AnimatedPositioned(
+                  top: 0,
+                  duration: const Duration(seconds: 2),
+                  child: Container(
+                    color: Theme.of(context).colorScheme.secondary,
+                    width: 100,
+                    height: 100,
+                    alignment: Alignment.bottomCenter,
+                    child: CardWidget(),
+                  ),
+                )
               ],
             ),
           );
