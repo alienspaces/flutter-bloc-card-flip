@@ -11,7 +11,6 @@ part 'card_state.dart';
 
 class CardCubit extends Cubit<CardState> {
   final CardRepository _cardRepository;
-  // late final CardModel card;
   CardModel? card;
   bool cardFlipped = false;
 

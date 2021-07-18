@@ -1,11 +1,11 @@
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flip_card/flip_card.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
-import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
+// import 'package:flutter_bloc_exploration/cubit/card/card_cubit.dart';
 
 class CardWidget extends StatefulWidget {
   CardWidget({
@@ -41,19 +41,19 @@ class _CardWidgetState extends State<CardWidget> {
     );
   }
 
-  void _onChange(BuildContext context, CardState state) {
-    final log = getLogger('CardWidget - _onChange');
-    log.info('Changed!');
-  }
+  // void _onChange(BuildContext context, CardState state) {
+  //   final log = getLogger('CardWidget - _onChange');
+  //   log.info('Changed!');
+  // }
 
-  void _onTap(BuildContext context, CardState state) {
-    final log = getLogger('FlipCardButtonWidget - flipCard');
-    log.info('Pressed flip >$state<');
-    if (state is CardUnflipped || state is CardInitial) {
-      final cardCubit = BlocProvider.of<CardCubit>(context);
-      cardCubit.flipCard();
-    }
-  }
+  // void _onTap(BuildContext context, CardState state) {
+  //   final log = getLogger('FlipCardButtonWidget - flipCard');
+  //   log.info('Pressed flip >$state<');
+  //   if (state is CardUnflipped || state is CardInitial) {
+  //     final cardCubit = BlocProvider.of<CardCubit>(context);
+  //     cardCubit.flipCard();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

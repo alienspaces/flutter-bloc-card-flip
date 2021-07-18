@@ -1,10 +1,13 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
+import 'package:flutter_bloc_exploration/cubit/card_deck/card_deck_cubit.dart';
 
-// The card board lays out a board of cards
 class CardDeckWidget extends StatefulWidget {
+  const CardDeckWidget({Key? key}) : super(key: key);
+
   @override
   _CardDeckWidgetState createState() => _CardDeckWidgetState();
 }
@@ -15,29 +18,28 @@ class _CardDeckWidgetState extends State<CardDeckWidget> {
     final log = getLogger('CardDeckWidget - build');
     log.info('Building..');
 
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 16),
-      alignment: Alignment.center,
-      child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-        log.info('Constraints container width ${constraints.maxWidth}');
-        log.info('Constraints container height ${constraints.maxHeight}');
-
-        double containerWidth = constraints.maxWidth;
-        double containerHeight = constraints.maxHeight / 2;
-
-        log.info('Container width $containerWidth');
-        log.info('Container height $containerHeight');
-
-        Widget _buildContent() {
-          return Container(
-            child: Text('Card deck'),
-          );
-        }
-
+    return BlocConsumer<CardDeckCubit, CardDeckState>(
+      listenWhen: (previousState, state) {
+        log.info('Listen when called');
+        return true;
+      },
+      listener: (context, state) => null,
+      builder: (BuildContext context, CardDeckState state) {
         return Container(
-          child: _buildContent(),
+          child: MouseRegion(
+            cursor: state is CardDeckReady || state is CardDeckInitial
+                ? SystemMouseCursors.click
+                : SystemMouseCursors.forbidden,
+            child: GestureDetector(
+              onTap: () => null,
+              child: Container(
+                color: Colors.orange,
+                child: Text('Card Deck'),
+              ),
+            ),
+          ),
         );
-      }),
+      },
     );
   }
 }

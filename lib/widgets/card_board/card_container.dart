@@ -4,7 +4,7 @@ import 'package:vector_math/vector_math.dart' as vector;
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
-import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
+import 'package:flutter_bloc_exploration/cubit/card/card_cubit.dart';
 import 'package:flutter_bloc_exploration/data/card_repository.dart';
 import 'package:flutter_bloc_exploration/widgets/card_board/card.dart';
 import 'package:flutter_bloc_exploration/widgets/card_board/card_button.dart';
@@ -32,7 +32,7 @@ class _CardContainerState extends State<CardContainer> {
     );
 
     return BlocProvider(
-      create: (context) => CardCubit(FakeCardRepository()),
+      create: (context) => CardCubit(LocalCardRepository()),
       child: Container(
         width: widget.cardDimensions.x,
         height: widget.cardDimensions.y,
