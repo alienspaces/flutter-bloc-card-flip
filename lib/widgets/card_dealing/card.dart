@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
-// import 'package:flutter_bloc_exploration/cubit/card/card_cubit.dart';
+import 'package:flutter_bloc_exploration/size.dart';
 
 class CardWidget extends StatefulWidget {
   CardWidget({
@@ -60,48 +60,54 @@ class _CardWidgetState extends State<CardWidget> {
     final log = getLogger('CardWidget - build');
     log.info('Building..');
 
-    return Container(
-      child: MouseRegion(
-        child: GestureDetector(
-          onTap: () => null,
-          child: FlipCard(
-            flipOnTouch: false,
-            front: Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                Container(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    child: getCardBackImage(),
-                  ),
-                ),
-              ],
-            ),
-            back: Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                Container(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    child: getCardFrontImage(),
-                  ),
-                ),
-                Container(
-                  child: Positioned(
-                    right: 10,
-                    bottom: 4,
-                    child: Text(
-                      '',
-                      style: Theme.of(context).textTheme.headline4,
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+      Size cardDimensions = cardSize(constraints.maxWidth, constraints.maxHeight);
+
+      return Container(
+        width: cardDimensions.width,
+        height: cardDimensions.height,
+        child: MouseRegion(
+          child: GestureDetector(
+            onTap: () => null,
+            child: FlipCard(
+              flipOnTouch: false,
+              front: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      child: getCardBackImage(),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
+              back: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      child: getCardFrontImage(),
+                    ),
+                  ),
+                  Container(
+                    child: Positioned(
+                      right: 10,
+                      bottom: 4,
+                      child: Text(
+                        '',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              controller: controller,
             ),
-            controller: controller,
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

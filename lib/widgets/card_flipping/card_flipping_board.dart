@@ -3,18 +3,18 @@ import 'package:vector_math/vector_math.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
-import 'package:flutter_bloc_exploration/widgets/card_board/card_container.dart';
+import 'package:flutter_bloc_exploration/widgets/card_flipping/card_container.dart';
 
 // The card board lays out a board of cards
-class CardBoardWidget extends StatefulWidget {
+class CardFlippingBoardWidget extends StatefulWidget {
   @override
-  _CardBoardWidgetState createState() => _CardBoardWidgetState();
+  _CardFlippingBoardWidgetState createState() => _CardFlippingBoardWidgetState();
 }
 
-class _CardBoardWidgetState extends State<CardBoardWidget> {
+class _CardFlippingBoardWidgetState extends State<CardFlippingBoardWidget> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardBoardWidget - build');
+    final log = getLogger('CardFlippingBoardWidget - build');
     log.info('Building..');
 
     return Container(

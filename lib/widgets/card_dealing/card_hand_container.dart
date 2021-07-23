@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_exploration/logger.dart';
 
 // The card board lays out a board of cards
-class CardHandWidget extends StatefulWidget {
+class CardHandContainerWidget extends StatefulWidget {
   @override
-  _CardHandWidgetState createState() => _CardHandWidgetState();
+  _CardHandContainerWidgetState createState() => _CardHandContainerWidgetState();
 }
 
-class _CardHandWidgetState extends State<CardHandWidget> {
+class _CardHandContainerWidgetState extends State<CardHandContainerWidget> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardHandWidget - build');
+    final log = getLogger('CardHandContainerWidget - build');
     log.info('Building..');
 
     return Container(

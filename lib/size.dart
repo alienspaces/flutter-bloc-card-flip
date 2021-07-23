@@ -14,3 +14,13 @@ double displayWidth(BuildContext context) {
   debugPrint('Width = ' + displaySize(context).width.toString());
   return displaySize(context).width;
 }
+
+Size cardSize(double availableWidth, double availableHeight) {
+  double cardWidth = availableWidth.floorToDouble();
+  double cardHeight = ((cardWidth / 4) * 7).floorToDouble();
+  if (cardHeight > availableHeight) {
+    cardHeight = availableHeight.floorToDouble();
+    cardWidth = ((cardHeight / 7) * 4).floorToDouble();
+  }
+  return Size(cardWidth, cardHeight);
+}
