@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 // Application packages
 import 'package:flutter_bloc_exploration/header.dart';
 import 'package:flutter_bloc_exploration/navigation.dart';
-import 'package:flutter_bloc_exploration/widgets/card_board/card_board.dart';
+import 'package:flutter_bloc_exploration/widgets/card_dealing/card_dealing_board.dart';
 import 'package:flutter_bloc_exploration/logger.dart';
 
-class CardBoardPage extends Page {
-  static const String pageName = 'CardBoardPage';
+class CardDealingPage extends Page {
+  static const String pageName = 'CardDealingPage';
   final NavigationCallbacks callbacks;
 
-  CardBoardPage({
-    LocalKey key = const ValueKey(CardBoardPage.pageName),
-    name = CardBoardPage.pageName,
+  CardDealingPage({
+    LocalKey key = const ValueKey(CardDealingPage.pageName),
+    name = CardDealingPage.pageName,
     required this.callbacks,
   }) : super(key: key, name: name);
 
@@ -20,7 +20,7 @@ class CardBoardPage extends Page {
     return MaterialPageRoute(
       settings: this,
       builder: (BuildContext context) {
-        return CardBoardScreen(
+        return CardDealScreen(
           callbacks: callbacks,
         );
       },
@@ -28,23 +28,24 @@ class CardBoardPage extends Page {
   }
 }
 
-// Card board
-class CardBoardScreen extends StatefulWidget {
+// Card search page is child of provider
+class CardDealScreen extends StatefulWidget {
   final NavigationCallbacks callbacks;
+  static String pageName = 'CardDeal';
 
-  CardBoardScreen({
+  CardDealScreen({
     Key? key,
     required this.callbacks,
   }) : super(key: key);
 
   @override
-  _CardBoardScreenState createState() => _CardBoardScreenState();
+  _CardDealScreenState createState() => _CardDealScreenState();
 }
 
-class _CardBoardScreenState extends State<CardBoardScreen> {
+class _CardDealScreenState extends State<CardDealScreen> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardBoardPage - build');
+    final log = getLogger('CardDealingPage - build');
     log.info('Building..');
 
     return Scaffold(
@@ -52,7 +53,7 @@ class _CardBoardScreenState extends State<CardBoardScreen> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
-        child: CardBoardWidget(),
+        child: CardDealingBoardWidget(),
       ),
     );
   }

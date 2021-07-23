@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
-import 'package:flutter_bloc_exploration/widgets/card_deal/card_deck.dart';
-import 'package:flutter_bloc_exploration/widgets/card_deal/card_hand.dart';
-import 'package:flutter_bloc_exploration/widgets/card_deal/card.dart';
+import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_container.dart';
+import 'package:flutter_bloc_exploration/widgets/card_dealing/card_hand_container.dart';
+import 'package:flutter_bloc_exploration/widgets/card_dealing/card.dart';
 
 // The card board lays out a board of cards
-class CardDealWidget extends StatefulWidget {
+class CardDealingBoardWidget extends StatefulWidget {
   @override
-  _CardDealWidgetState createState() => _CardDealWidgetState();
+  _CardDealingBoardWidgetState createState() => _CardDealingBoardWidgetState();
 }
 
-class _CardDealWidgetState extends State<CardDealWidget> {
+class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardDealWidget - build');
+    final log = getLogger('CardDealingBoardWidget - build');
     log.info('Building..');
 
     return Container(
@@ -44,7 +44,7 @@ class _CardDealWidgetState extends State<CardDealWidget> {
                     alignment: Alignment.topCenter,
                     width: containerWidth,
                     height: containerHeight / 2,
-                    child: CardHandWidget(),
+                    child: CardHandContainerWidget(),
                   ),
                 ),
                 Positioned(
@@ -54,16 +54,16 @@ class _CardDealWidgetState extends State<CardDealWidget> {
                     alignment: Alignment.bottomCenter,
                     width: containerWidth,
                     height: containerHeight / 2,
-                    child: CardDeckWidget(),
+                    child: CardDeckContainerWidget(),
                   ),
                 ),
                 AnimatedPositioned(
-                  top: 0,
-                  duration: const Duration(seconds: 2),
+                  top: containerHeight / 4,
+                  duration: const Duration(seconds: 1),
                   child: Container(
                     color: Theme.of(context).colorScheme.secondary,
-                    width: 100,
-                    height: 100,
+                    width: containerWidth,
+                    height: containerHeight / 2.2,
                     alignment: Alignment.bottomCenter,
                     child: CardWidget(),
                   ),

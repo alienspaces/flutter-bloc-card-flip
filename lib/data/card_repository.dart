@@ -7,7 +7,7 @@ abstract class CardRepository {
   CardModel create();
 }
 
-class FakeCardRepository implements CardRepository {
+class LocalCardRepository implements CardRepository {
   @override
   CardModel create() {
     final random = Random();

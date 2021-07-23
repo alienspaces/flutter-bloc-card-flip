@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
-import 'package:flutter_bloc_exploration/pages/card_board_page.dart';
-import 'package:flutter_bloc_exploration/pages/card_deal_page.dart';
+import 'package:flutter_bloc_exploration/pages/card_flipping_page.dart';
+import 'package:flutter_bloc_exploration/pages/card_dealing_page.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -23,17 +23,17 @@ class NavigationCallbacks {
 }
 
 class _NavigationState extends State<Navigation> {
-  List<String> _pageList = [CardDealPage.pageName];
+  List<String> _pageList = [CardDealingPage.pageName];
 
   void openBoardPage() {
     setState(() {
-      _pageList = [CardBoardPage.pageName];
+      _pageList = [CardFlippingPage.pageName];
     });
   }
 
   void openDealPage() {
     setState(() {
-      _pageList = [CardDealPage.pageName];
+      _pageList = [CardDealingPage.pageName];
     });
   }
 
@@ -50,13 +50,13 @@ class _NavigationState extends State<Navigation> {
 
     _pageList.forEach((pageName) {
       switch (pageName) {
-        case CardBoardPage.pageName:
-          log.info('Adding ${CardBoardPage.pageName}');
-          pages.add(CardBoardPage(callbacks: callbacks));
+        case CardFlippingPage.pageName:
+          log.info('Adding ${CardFlippingPage.pageName}');
+          pages.add(CardFlippingPage(callbacks: callbacks));
           break;
-        case CardDealPage.pageName:
-          log.info('Adding ${CardDealPage.pageName}');
-          pages.add(CardDealPage(callbacks: callbacks));
+        case CardDealingPage.pageName:
+          log.info('Adding ${CardDealingPage.pageName}');
+          pages.add(CardDealingPage(callbacks: callbacks));
           break;
         default:
         //

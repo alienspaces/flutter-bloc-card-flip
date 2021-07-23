@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
-import 'package:flutter_bloc_exploration/cubit/card_cubit.dart';
+import 'package:flutter_bloc_exploration/cubit/card/card_cubit.dart';
 
 class CardButtonWidget extends StatelessWidget {
   const CardButtonWidget({

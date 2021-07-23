@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 // Application packages
 import 'package:flutter_bloc_exploration/header.dart';
 import 'package:flutter_bloc_exploration/navigation.dart';
-import 'package:flutter_bloc_exploration/widgets/card_deal/card_deal.dart';
+import 'package:flutter_bloc_exploration/widgets/card_flipping/card_flipping_board.dart';
 import 'package:flutter_bloc_exploration/logger.dart';
 
-class CardDealPage extends Page {
-  static const String pageName = 'CardDealPage';
+class CardFlippingPage extends Page {
+  static const String pageName = 'CardFlippingPage';
   final NavigationCallbacks callbacks;
 
-  CardDealPage({
-    LocalKey key = const ValueKey(CardDealPage.pageName),
-    name = CardDealPage.pageName,
+  CardFlippingPage({
+    LocalKey key = const ValueKey(CardFlippingPage.pageName),
+    name = CardFlippingPage.pageName,
     required this.callbacks,
   }) : super(key: key, name: name);
 
@@ -20,7 +20,7 @@ class CardDealPage extends Page {
     return MaterialPageRoute(
       settings: this,
       builder: (BuildContext context) {
-        return CardDealScreen(
+        return CardBoardScreen(
           callbacks: callbacks,
         );
       },
@@ -28,24 +28,23 @@ class CardDealPage extends Page {
   }
 }
 
-// Card search page is child of provider
-class CardDealScreen extends StatefulWidget {
+// Card board
+class CardBoardScreen extends StatefulWidget {
   final NavigationCallbacks callbacks;
-  static String pageName = 'CardDeal';
 
-  CardDealScreen({
+  CardBoardScreen({
     Key? key,
     required this.callbacks,
   }) : super(key: key);
 
   @override
-  _CardDealScreenState createState() => _CardDealScreenState();
+  _CardBoardScreenState createState() => _CardBoardScreenState();
 }
 
-class _CardDealScreenState extends State<CardDealScreen> {
+class _CardBoardScreenState extends State<CardBoardScreen> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardDealPage - build');
+    final log = getLogger('CardFlippingPage - build');
     log.info('Building..');
 
     return Scaffold(
@@ -53,7 +52,7 @@ class _CardDealScreenState extends State<CardDealScreen> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
-        child: CardDealWidget(),
+        child: CardFlippingBoardWidget(),
       ),
     );
   }
