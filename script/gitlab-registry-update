@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 docker login registry.gitlab.com -u alienspaces@gmail.com -p $GITLAB_PERSONAL_TOKEN
