@@ -58,11 +58,12 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
                   ),
                 ),
                 AnimatedPositioned(
-                  top: containerHeight / 4,
+                  top: containerHeight / 3,
+                  left: containerWidth / 3,
                   duration: const Duration(seconds: 1),
                   child: Container(
                     color: Theme.of(context).colorScheme.secondary,
-                    width: containerWidth,
+                    width: containerWidth / 3,
                     height: containerHeight / 2.2,
                     alignment: Alignment.bottomCenter,
                     child: CardWidget(),
