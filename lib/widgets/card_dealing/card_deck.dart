@@ -14,10 +14,54 @@ class CardDeckWidget extends StatefulWidget {
 }
 
 class _CardDeckWidgetState extends State<CardDeckWidget> {
+  void _shuffleDeck(BuildContext context) {
+    final cardDeckCubit = BlocProvider.of<CardDeckCubit>(context);
+    cardDeckCubit.shuffleDeck();
+  }
+
+  void _dealCard(BuildContext context) {
+    final cardDeckCubit = BlocProvider.of<CardDeckCubit>(context);
+    cardDeckCubit.dealCard();
+  }
+
   _buildContent(BuildContext context, CardDeckState state) {
     if (state is CardDeckInitial) {
+      return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        ElevatedButton(
+          onPressed: () => _shuffleDeck(context),
+          child: Text('Shuffle'),
+          style: ElevatedButton.styleFrom(
+            primary: Theme.of(context).colorScheme.secondary,
+            onPrimary: Theme.of(context).colorScheme.onSecondary,
+            onSurface: Theme.of(context).colorScheme.onSecondary,
+          ),
+        ),
+        CardWidget()
+      ]);
+    }
+    // TODO: Animate card deck shuffling
+    if (state is CardDeckShuffling) {
       return CardWidget();
     }
+    if (state is CardDeckReady) {
+      return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        ElevatedButton(
+          onPressed: () => _dealCard(context),
+          child: Text('Deal'),
+          style: ElevatedButton.styleFrom(
+            primary: Theme.of(context).colorScheme.secondary,
+            onPrimary: Theme.of(context).colorScheme.onSecondary,
+            onSurface: Theme.of(context).colorScheme.onSecondary,
+          ),
+        ),
+        CardWidget()
+      ]);
+    }
+    // TODO: Animate card dealing
+    if (state is CardDeckDealing) {
+      return Row(mainAxisAlignment: MainAxisAlignment.center, children: [CardWidget()]);
+    }
+
     return GestureDetector(
       onTap: () => null,
       child: Container(

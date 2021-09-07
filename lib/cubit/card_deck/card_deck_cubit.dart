@@ -20,7 +20,7 @@ class CardDeckCubit extends Cubit<CardDeckState> {
   Future<void> shuffleDeck() async {
     final log = getLogger('CardDeckCubit - shuffleDeck');
 
-    log.info('Emitting card deck flipping');
+    log.info('Emitting card deck shuffling');
     emit(CardDeckShuffling());
 
     for (var i = 0; i < this.cardCount; i++) {
