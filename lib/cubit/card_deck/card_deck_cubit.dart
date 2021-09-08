@@ -34,10 +34,14 @@ class CardDeckCubit extends Cubit<CardDeckState> {
   Future<void> dealCard() async {
     final log = getLogger('CardCubit - dealCard');
 
-    CardModel card = this.deck[this.deck.length];
-    this.deck.removeLast();
+    if (this.deck.length == 0) {
+      log.info('Deck is empty, cannot deal more cards');
+      return;
+    }
 
-    log.info('Emitting card deck dealing');
+    CardModel card = this.deck.removeLast();
+
+    log.info('Emitting card deck dealing ${this.deck.length}');
     emit(CardDeckDealing(deck: this.deck, card: card));
 
     log.info('Emitting card deck ready');

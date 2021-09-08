@@ -34,6 +34,7 @@ class _CardDeckContainerWidgetState extends State<CardDeckContainerWidget> {
           log.info('Container height $containerHeight');
 
           Widget _buildContent() {
+            // TODO: Determine when there are no cards..
             return CardDeckWidget();
           }
 

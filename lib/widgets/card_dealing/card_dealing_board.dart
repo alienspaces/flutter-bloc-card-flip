@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
 import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_container.dart';
+import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_dealing.dart';
+import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_shuffling.dart';
 import 'package:flutter_bloc_exploration/widgets/card_dealing/card_hand_container.dart';
 import 'package:flutter_bloc_exploration/widgets/card_dealing/card.dart';
 
@@ -31,6 +33,8 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
         log.info('Container width $containerWidth');
         log.info('Container height $containerHeight');
 
+        // TODO: Probably need to determine card size here and pass it
+        // down to children so we are recalculating it all the time.
         Widget _buildContent() {
           return Container(
             width: containerWidth,
@@ -57,16 +61,26 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
                     child: CardDeckContainerWidget(),
                   ),
                 ),
-                AnimatedPositioned(
+                Positioned(
                   top: 0,
                   left: 0,
-                  duration: const Duration(seconds: 1),
                   child: Container(
                     color: Theme.of(context).colorScheme.secondary,
-                    width: containerWidth / 3,
-                    height: containerHeight / 2.2,
+                    width: containerWidth,
+                    height: containerHeight,
                     alignment: Alignment.bottomCenter,
-                    child: CardWidget(),
+                    child: CardDeckShufflingWidget(),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Container(
+                    color: Theme.of(context).colorScheme.secondary,
+                    width: containerWidth,
+                    height: containerHeight,
+                    alignment: Alignment.bottomCenter,
+                    child: CardDeckDealingWidget(),
                   ),
                 )
               ],
