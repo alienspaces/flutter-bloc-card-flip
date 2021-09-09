@@ -25,47 +25,55 @@ class _CardDeckWidgetState extends State<CardDeckWidget> {
   }
 
   _buildContent(BuildContext context, CardDeckState state) {
+    final log = getLogger('CardDeckWidget');
+    log.info('_buildContent');
+
     if (state is CardDeckInitial) {
+      log.info('_buildContent - CardDeckInitial');
       return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        ElevatedButton(
-          onPressed: () => _shuffleDeck(context),
-          child: Text('Shuffle'),
-          style: ElevatedButton.styleFrom(
-            primary: Theme.of(context).colorScheme.secondary,
-            onPrimary: Theme.of(context).colorScheme.onSecondary,
-            onSurface: Theme.of(context).colorScheme.onSecondary,
-          ),
-        ),
-        CardWidget()
+        // ElevatedButton(
+        //   onPressed: () => _shuffleDeck(context),
+        //   child: Text('Shuffle'),
+        //   style: ElevatedButton.styleFrom(
+        //     primary: Theme.of(context).colorScheme.secondary,
+        //     onPrimary: Theme.of(context).colorScheme.onSecondary,
+        //     onSurface: Theme.of(context).colorScheme.onSecondary,
+        //   ),
+        // ),
+        Expanded(child: CardWidget()),
       ]);
     }
     // TODO: Animate card deck shuffling
     if (state is CardDeckShuffling) {
+      log.info('_buildContent - CardDeckShuffling');
       return CardWidget();
     }
     if (state is CardDeckReady) {
+      log.info('_buildContent - CardDeckReady');
       return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        ElevatedButton(
-          onPressed: () => _dealCard(context),
-          child: Text('Deal'),
-          style: ElevatedButton.styleFrom(
-            primary: Theme.of(context).colorScheme.secondary,
-            onPrimary: Theme.of(context).colorScheme.onSecondary,
-            onSurface: Theme.of(context).colorScheme.onSecondary,
-          ),
-        ),
+        // ElevatedButton(
+        //   onPressed: () => _dealCard(context),
+        //   child: Text('Deal'),
+        //   style: ElevatedButton.styleFrom(
+        //     primary: Theme.of(context).colorScheme.secondary,
+        //     onPrimary: Theme.of(context).colorScheme.onSecondary,
+        //     onSurface: Theme.of(context).colorScheme.onSecondary,
+        //   ),
+        // ),
         CardWidget()
       ]);
     }
     // TODO: Animate card dealing
     if (state is CardDeckDealing) {
+      log.info('_buildContent - CardDeckDealing');
       return Row(mainAxisAlignment: MainAxisAlignment.center, children: [CardWidget()]);
     }
+
+    log.info('_buildContent - Default');
 
     return GestureDetector(
       onTap: () => null,
       child: Container(
-        color: Colors.orange,
         child: Text('Card Deck'),
       ),
     );
@@ -73,7 +81,7 @@ class _CardDeckWidgetState extends State<CardDeckWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardDeckWidget - build');
+    final log = getLogger('CardDeckWidget');
     log.info('Building..');
 
     return BlocConsumer<CardDeckCubit, CardDeckState>(

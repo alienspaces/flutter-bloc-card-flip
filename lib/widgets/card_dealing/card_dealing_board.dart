@@ -99,32 +99,32 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
                     ),
                   ),
                 ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  child: Container(
-                    width: containerWidth,
-                    height: containerHeight,
-                    alignment: Alignment.bottomCenter,
-                    child: CardDeckShufflingContainerWidget(
-                      boardDimensions: boardDimensions,
-                      cardDimensions: cardDimensions,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  child: Container(
-                    width: containerWidth,
-                    height: containerHeight,
-                    alignment: Alignment.bottomCenter,
-                    child: CardDeckDealingContainerWidget(
-                      boardDimensions: boardDimensions,
-                      cardDimensions: cardDimensions,
-                    ),
-                  ),
-                )
+                // Positioned(
+                //   top: 0,
+                //   left: 0,
+                //   child: Container(
+                //     width: containerWidth,
+                //     height: containerHeight,
+                //     alignment: Alignment.bottomCenter,
+                //     child: CardDeckShufflingContainerWidget(
+                //       boardDimensions: boardDimensions,
+                //       cardDimensions: cardDimensions,
+                //     ),
+                //   ),
+                // ),
+                // Positioned(
+                //   top: 0,
+                //   left: 0,
+                //   child: Container(
+                //     width: containerWidth,
+                //     height: containerHeight,
+                //     alignment: Alignment.bottomCenter,
+                //     child: CardDeckDealingContainerWidget(
+                //       boardDimensions: boardDimensions,
+                //       cardDimensions: cardDimensions,
+                //     ),
+                //   ),
+                // )
               ],
             ),
           );

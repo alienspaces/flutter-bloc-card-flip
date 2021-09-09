@@ -61,7 +61,9 @@ class _CardWidgetState extends State<CardWidget> {
     log.info('Building..');
 
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-      Size cardDimensions = cardSize(constraints.maxWidth, constraints.maxHeight);
+      Size cardDimensions = Size(constraints.maxWidth, constraints.maxHeight);
+
+      log.info('Card width ${cardDimensions.width} height ${cardDimensions.height}');
 
       return Container(
         width: cardDimensions.width,

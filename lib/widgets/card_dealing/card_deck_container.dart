@@ -29,20 +29,28 @@ class _CardDeckContainerWidgetState extends State<CardDeckContainerWidget> {
       alignment: Alignment.center,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
+          // TODO: Determine when there are no cards..
           Widget _buildContent() {
-            // TODO: Determine when there are no cards..
+            log.info(
+              'Board width ${widget.boardDimensions.width} height ${widget.boardDimensions.height}',
+            );
+            log.info(
+              'Card width ${widget.cardDimensions.width} height ${widget.cardDimensions.height}',
+            );
             return Container(
-              width: widget.cardDimensions.width,
-              height: widget.cardDimensions.height,
-              child: CardDeckWidget(),
+              width: widget.boardDimensions.width,
+              height: widget.boardDimensions.height,
+              child: Container(
+                width: widget.cardDimensions.width,
+                height: widget.cardDimensions.height,
+                child: CardDeckWidget(),
+              ),
             );
           }
 
           return BlocProvider(
             create: (context) => CardDeckCubit(LocalCardRepository(), 10),
             child: Container(
-              color: Colors.yellow,
-              alignment: Alignment.center,
               child: _buildContent(),
             ),
           );
