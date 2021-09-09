@@ -5,6 +5,11 @@ import 'package:flutter_bloc_exploration/logger.dart';
 
 // The card board lays out a board of cards
 class CardHandContainerWidget extends StatefulWidget {
+  final Size boardDimensions;
+  final Size cardDimensions;
+
+  CardHandContainerWidget({required this.boardDimensions, required this.cardDimensions});
+
   @override
   _CardHandContainerWidgetState createState() => _CardHandContainerWidgetState();
 }
@@ -19,15 +24,6 @@ class _CardHandContainerWidgetState extends State<CardHandContainerWidget> {
       padding: EdgeInsets.symmetric(vertical: 16),
       alignment: Alignment.center,
       child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-        log.info('Constraints container width ${constraints.maxWidth}');
-        log.info('Constraints container height ${constraints.maxHeight}');
-
-        double containerWidth = constraints.maxWidth;
-        double containerHeight = constraints.maxHeight / 2;
-
-        log.info('Container width $containerWidth');
-        log.info('Container height $containerHeight');
-
         Widget _buildContent() {
           return Container(
             child: Text('Card hand'),

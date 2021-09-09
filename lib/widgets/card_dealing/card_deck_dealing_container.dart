@@ -5,20 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_exploration/logger.dart';
 import 'package:flutter_bloc_exploration/cubit/card_deck/card_deck_cubit.dart';
 import 'package:flutter_bloc_exploration/data/card_repository.dart';
-import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck.dart';
+import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_dealing.dart';
 
 // The card board lays out a board of cards
-class CardDeckContainerWidget extends StatefulWidget {
+class CardDeckDealingContainerWidget extends StatefulWidget {
   final Size boardDimensions;
   final Size cardDimensions;
 
-  CardDeckContainerWidget({required this.boardDimensions, required this.cardDimensions});
+  CardDeckDealingContainerWidget({required this.boardDimensions, required this.cardDimensions});
 
   @override
-  _CardDeckContainerWidgetState createState() => _CardDeckContainerWidgetState();
+  _CardDeckDealingContainerWidgetState createState() => _CardDeckDealingContainerWidgetState();
 }
 
-class _CardDeckContainerWidgetState extends State<CardDeckContainerWidget> {
+class _CardDeckDealingContainerWidgetState extends State<CardDeckDealingContainerWidget> {
   @override
   Widget build(BuildContext context) {
     final log = getLogger('CardDeckWidget - build');
@@ -32,17 +32,17 @@ class _CardDeckContainerWidgetState extends State<CardDeckContainerWidget> {
           Widget _buildContent() {
             // TODO: Determine when there are no cards..
             return Container(
-              width: widget.cardDimensions.width,
-              height: widget.cardDimensions.height,
-              child: CardDeckWidget(),
+              child: CardDeckDealingWidget(
+                cardDimensions: widget.cardDimensions,
+              ),
             );
           }
 
           return BlocProvider(
             create: (context) => CardDeckCubit(LocalCardRepository(), 10),
             child: Container(
-              color: Colors.yellow,
-              alignment: Alignment.center,
+              width: widget.boardDimensions.width,
+              height: widget.boardDimensions.height,
               child: _buildContent(),
             ),
           );

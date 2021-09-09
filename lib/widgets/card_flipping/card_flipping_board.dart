@@ -24,6 +24,8 @@ class _CardFlippingBoardWidgetState extends State<CardFlippingBoardWidget> {
         log.info('Constraints container width ${constraints.maxWidth}');
         log.info('Constraints container height ${constraints.maxHeight}');
 
+        // TODO: Move to common calculator
+
         // Size this container according to the number of cards we want
         // to lay out within the available space.
         int cardsAcross = 3;
