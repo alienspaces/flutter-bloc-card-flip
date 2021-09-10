@@ -1,7 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
+import 'package:flutter_bloc_exploration/cubit/card_deck/card_deck_cubit.dart';
+import 'package:flutter_bloc_exploration/data/card_repository.dart';
+import 'package:flutter_bloc_exploration/widgets/card_dealing/card_hand.dart';
 
 // The card board lays out a board of cards
 class CardHandContainerWidget extends StatefulWidget {
@@ -17,23 +21,34 @@ class CardHandContainerWidget extends StatefulWidget {
 class _CardHandContainerWidgetState extends State<CardHandContainerWidget> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardHandContainerWidget - build');
-    log.info('Building..');
+    final log = getLogger('CardHandWidget - build');
+    log.info('CardHandContainerWidget- Building..');
 
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 16),
-      alignment: Alignment.center,
-      child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-        Widget _buildContent() {
-          return Container(
-            child: Text('Card hand'),
-          );
-        }
+    Widget _buildContent() {
+      log.info(
+        'CardHandContainerWidget- Board width ${widget.boardDimensions.width} height ${widget.boardDimensions.height}',
+      );
+      log.info(
+        'CardHandContainerWidget- Card width ${widget.cardDimensions.width} height ${widget.cardDimensions.height}',
+      );
+      return Container(
+        child: CardHandWidget(),
+      );
+    }
 
-        return Container(
-          child: _buildContent(),
-        );
-      }),
+    return BlocProvider(
+      create: (context) => CardDeckCubit(LocalCardRepository(), 10),
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: widget.boardDimensions.width / 3,
+            width: widget.cardDimensions.width,
+            height: widget.cardDimensions.height,
+            child: _buildContent(),
+          ),
+        ],
+      ),
     );
   }
 }

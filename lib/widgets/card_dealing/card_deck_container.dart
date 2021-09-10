@@ -22,39 +22,32 @@ class _CardDeckContainerWidgetState extends State<CardDeckContainerWidget> {
   @override
   Widget build(BuildContext context) {
     final log = getLogger('CardDeckWidget - build');
-    log.info('Building..');
+    log.info('CardDeckContainerWidget- Building..');
 
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 16),
-      alignment: Alignment.center,
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          // TODO: Determine when there are no cards..
-          Widget _buildContent() {
-            log.info(
-              'Board width ${widget.boardDimensions.width} height ${widget.boardDimensions.height}',
-            );
-            log.info(
-              'Card width ${widget.cardDimensions.width} height ${widget.cardDimensions.height}',
-            );
-            return Container(
-              width: widget.boardDimensions.width,
-              height: widget.boardDimensions.height,
-              child: Container(
-                width: widget.cardDimensions.width,
-                height: widget.cardDimensions.height,
-                child: CardDeckWidget(),
-              ),
-            );
-          }
+    Widget _buildContent() {
+      log.info(
+        'CardDeckContainerWidget- Board width ${widget.boardDimensions.width} height ${widget.boardDimensions.height}',
+      );
+      log.info(
+        'CardDeckContainerWidget- Card width ${widget.cardDimensions.width} height ${widget.cardDimensions.height}',
+      );
+      return Container(
+        child: CardDeckWidget(),
+      );
+    }
 
-          return BlocProvider(
-            create: (context) => CardDeckCubit(LocalCardRepository(), 10),
-            child: Container(
-              child: _buildContent(),
-            ),
-          );
-        },
+    return BlocProvider(
+      create: (context) => CardDeckCubit(LocalCardRepository(), 10),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 0,
+            left: widget.boardDimensions.width / 3,
+            width: widget.cardDimensions.width,
+            height: widget.cardDimensions.height,
+            child: _buildContent(),
+          ),
+        ],
       ),
     );
   }

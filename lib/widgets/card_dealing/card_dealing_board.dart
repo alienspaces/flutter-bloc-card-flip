@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 // Application packages
 import 'package:flutter_bloc_exploration/logger.dart';
 import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_container.dart';
-import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_dealing_container.dart';
-import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_shuffling_container.dart';
 import 'package:flutter_bloc_exploration/widgets/card_dealing/card_hand_container.dart';
+import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_shuffling_container.dart';
+// import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_dealing_container.dart';
 
 // The card board lays out a board of cards
 class CardDealingBoardWidget extends StatefulWidget {
@@ -26,8 +26,9 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
         log.info('Constraints container width ${constraints.maxWidth}');
         log.info('Constraints container height ${constraints.maxHeight}');
 
-        double containerWidth = constraints.maxWidth;
-        double containerHeight = constraints.maxHeight;
+        var padding = MediaQuery.of(context).padding;
+        double containerWidth = constraints.maxWidth - padding.left - padding.right;
+        double containerHeight = constraints.maxHeight - padding.top - padding.bottom;
 
         log.info('Container width $containerWidth');
         log.info('Container height $containerHeight');
@@ -35,7 +36,7 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
         // Size this container according to the number of cards we want
         // to lay out within the available space.
         int cardsAcross = 3;
-        int cardsDown = 2;
+        int cardsDown = 3;
 
         log.info('Cards across $cardsAcross');
         log.info('Cards down $cardsDown');
@@ -62,62 +63,41 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
         log.info('Container width $containerWidth');
         log.info('Container height $containerHeight');
 
-        // Board dimensions are passed to child container widgets
+        // Board dimensions are passed to child widgets
         Size boardDimensions = Size(containerWidth, containerHeight);
 
-        // Card dimenions that are passed to all child components
-        // so all components have a uniform card size
-        Size cardDimensions = Size(containerWidth / 8, containerHeight / 6);
+        // Card dimenions that are passed to child widgets
+        Size cardDimensions = Size(cardWidth, cardHeight);
 
         Widget _buildContent() {
           return Container(
             width: containerWidth,
             height: containerHeight,
+            decoration: BoxDecoration(border: Border.all(color: Colors.yellow, width: 3)),
             child: Stack(
               children: [
-                Positioned(
-                  top: 0,
-                  child: Container(
-                    color: Theme.of(context).colorScheme.surface,
-                    alignment: Alignment.topCenter,
-                    width: containerWidth,
-                    child: CardHandContainerWidget(
-                      boardDimensions: boardDimensions,
-                      cardDimensions: cardDimensions,
-                    ),
+                Container(
+                  child: CardHandContainerWidget(
+                    boardDimensions: boardDimensions,
+                    cardDimensions: cardDimensions,
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    color: Theme.of(context).colorScheme.surface,
-                    alignment: Alignment.bottomCenter,
-                    width: containerWidth,
-                    child: CardDeckContainerWidget(
-                      boardDimensions: boardDimensions,
-                      cardDimensions: cardDimensions,
-                    ),
+                Container(
+                  child: CardDeckContainerWidget(
+                    boardDimensions: boardDimensions,
+                    cardDimensions: cardDimensions,
+                  ),
+                ),
+                Container(
+                  child: CardDeckShufflingContainerWidget(
+                    boardDimensions: boardDimensions,
+                    cardDimensions: cardDimensions,
                   ),
                 ),
                 // Positioned(
                 //   top: 0,
                 //   left: 0,
                 //   child: Container(
-                //     width: containerWidth,
-                //     height: containerHeight,
-                //     alignment: Alignment.bottomCenter,
-                //     child: CardDeckShufflingContainerWidget(
-                //       boardDimensions: boardDimensions,
-                //       cardDimensions: cardDimensions,
-                //     ),
-                //   ),
-                // ),
-                // Positioned(
-                //   top: 0,
-                //   left: 0,
-                //   child: Container(
-                //     width: containerWidth,
-                //     height: containerHeight,
                 //     alignment: Alignment.bottomCenter,
                 //     child: CardDeckDealingContainerWidget(
                 //       boardDimensions: boardDimensions,

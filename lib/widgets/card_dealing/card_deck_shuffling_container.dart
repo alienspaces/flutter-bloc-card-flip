@@ -24,27 +24,10 @@ class _CardDeckShufflingContainerWidgetState extends State<CardDeckShufflingCont
     final log = getLogger('CardDeckWidget - build');
     log.info('Building..');
 
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 16),
-      alignment: Alignment.center,
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          Widget _buildContent() {
-            // TODO: Determine when there are no cards..
-            return Container(
-              child: CardDeckShufflingWidget(cardDimensions: widget.cardDimensions),
-            );
-          }
-
-          return BlocProvider(
-            create: (context) => CardDeckCubit(LocalCardRepository(), 10),
-            child: Container(
-              width: widget.boardDimensions.width,
-              height: widget.boardDimensions.height,
-              child: _buildContent(),
-            ),
-          );
-        },
+    return BlocProvider(
+      create: (context) => CardDeckCubit(LocalCardRepository(), 10),
+      child: Stack(
+        children: [CardDeckShufflingWidget(cardDimensions: widget.cardDimensions)],
       ),
     );
   }
