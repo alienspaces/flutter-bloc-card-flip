@@ -31,7 +31,10 @@ class _CardDeckWidgetState extends State<CardDeckWidget> {
     if (state is CardDeckInitial) {
       log.info('CardDeckWidget - _buildContent - CardDeckInitial');
       return GestureDetector(
-        onTap: () => log.info('CardDeckWidget - _buildContent - CardDeckInitial - TAP'),
+        onTap: () {
+          log.info('CardDeckWidget - _buildContent - CardDeckInitial - TAP');
+          _shuffleDeck(context);
+        },
         child: CardWidget(),
       );
     }
@@ -45,7 +48,10 @@ class _CardDeckWidgetState extends State<CardDeckWidget> {
     if (state is CardDeckReady) {
       log.info('CardDeckWidget - _buildContent - CardDeckReady');
       return GestureDetector(
-        onTap: () => log.info('CardDeckWidget - _buildContent - CardDeckReady - TAP'),
+        onTap: () {
+          log.info('CardDeckWidget - _buildContent - CardDeckReady - TAP');
+          _dealCard(context);
+        },
         child: CardWidget(),
       );
     }

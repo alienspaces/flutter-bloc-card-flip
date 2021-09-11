@@ -14,16 +14,6 @@ class CardHandWidget extends StatefulWidget {
 }
 
 class _CardHandWidgetState extends State<CardHandWidget> {
-  void _shuffleDeck(BuildContext context) {
-    final cardDeckCubit = BlocProvider.of<CardDeckCubit>(context);
-    cardDeckCubit.shuffleDeck();
-  }
-
-  void _dealCard(BuildContext context) {
-    final cardDeckCubit = BlocProvider.of<CardDeckCubit>(context);
-    cardDeckCubit.dealCard();
-  }
-
   _buildContent(BuildContext context, CardDeckState state) {
     final log = getLogger('CardHandWidget');
     log.info('CardHandWidget - _buildContent');
