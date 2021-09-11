@@ -16,28 +16,14 @@ class CardDeckDealingContainerWidget extends StatefulWidget {
 }
 
 class _CardDeckDealingContainerWidgetState extends State<CardDeckDealingContainerWidget> {
-  Widget _buildContent() {
-    // TODO: Determine when there are no cards..
-    return Container(
-      child: CardDeckDealingWidget(
-        cardDimensions: widget.cardDimensions,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final log = getLogger('CardDeckWidget - build');
     log.info('Building..');
 
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 16),
-      alignment: Alignment.center,
-      child: Container(
-        width: widget.boardDimensions.width,
-        height: widget.boardDimensions.height,
-        child: _buildContent(),
-      ),
+    return CardDeckDealingWidget(
+      boardDimensions: widget.boardDimensions,
+      cardDimensions: widget.cardDimensions,
     );
   }
 }

@@ -14,6 +14,7 @@ class CardDeckCubit extends Cubit<CardDeckState> {
   final CardRepository _cardRepository;
   final int cardCount;
   List<CardModel> deck = [];
+  List<CardModel> hand = [];
 
   CardDeckCubit(this._cardRepository, this.cardCount) : super(CardDeckInitial());
 
@@ -28,7 +29,7 @@ class CardDeckCubit extends Cubit<CardDeckState> {
     }
 
     log.info('Emitting card deck ready');
-    emit(CardDeckReady(deck: this.deck));
+    emit(CardDeckReady(deck: this.deck, hand: this.hand));
   }
 
   Future<void> dealCard() async {
@@ -42,9 +43,11 @@ class CardDeckCubit extends Cubit<CardDeckState> {
     CardModel card = this.deck.removeLast();
 
     log.info('Emitting card deck dealing ${this.deck.length}');
-    emit(CardDeckDealing(deck: this.deck, card: card));
+    emit(CardDeckDealing(deck: this.deck, hand: this.hand, card: card));
+
+    this.hand.add(card);
 
     log.info('Emitting card deck ready');
-    emit(CardDeckReady(deck: this.deck));
+    emit(CardDeckReady(deck: this.deck, hand: this.hand));
   }
 }

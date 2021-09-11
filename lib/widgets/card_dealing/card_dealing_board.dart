@@ -119,7 +119,7 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
         }
 
         return BlocProvider(
-          create: (context) => CardDeckCubit(LocalCardRepository(), 10),
+          create: (context) => CardDeckCubit(LocalCardRepository(), 3),
           child: _buildContent(),
         );
       }),

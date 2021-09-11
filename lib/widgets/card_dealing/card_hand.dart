@@ -7,52 +7,52 @@ import 'package:flutter_bloc_exploration/cubit/card_deck/card_deck_cubit.dart';
 import 'package:flutter_bloc_exploration/widgets/card_dealing/card.dart';
 
 class CardHandWidget extends StatefulWidget {
-  const CardHandWidget({Key? key}) : super(key: key);
+  final Size boardDimensions;
+  final Size cardDimensions;
+
+  const CardHandWidget({
+    Key? key,
+    required this.boardDimensions,
+    required this.cardDimensions,
+  }) : super(key: key);
 
   @override
   _CardHandWidgetState createState() => _CardHandWidgetState();
 }
 
 class _CardHandWidgetState extends State<CardHandWidget> {
-  _buildContent(BuildContext context, CardDeckState state) {
-    final log = getLogger('CardHandWidget');
-    log.info('CardHandWidget - _buildContent');
+  List<Widget> cardStack = [];
 
-    if (state is CardDeckInitial) {
-      log.info('CardHandWidget - _buildContent - CardDeckInitial');
-      return GestureDetector(
-        onTap: () => log.info('CardHandWidget - _buildContent - CardDeckInitial - TAP'),
-        child: CardWidget(),
-      );
-    }
-    if (state is CardDeckShuffling) {
-      log.info('CardHandWidget - _buildContent - CardDeckShuffling');
-      return GestureDetector(
-        onTap: () => log.info('CardHandWidget - _buildContent - CardDeckShuffling - TAP'),
-        child: CardWidget(),
-      );
-    }
+  _buildCardHand(BuildContext context, CardDeckState state) {
+    final log = getLogger('CardHandWidget');
+    log.info('CardHandWidget - _buildCardHand');
+
+    int cardCount = 0;
     if (state is CardDeckReady) {
-      log.info('CardHandWidget - _buildContent - CardDeckReady');
-      return GestureDetector(
-        onTap: () => log.info('CardHandWidget - _buildContent - CardDeckReady - TAP'),
-        child: CardWidget(),
-      );
+      cardCount = state.hand.length;
     }
     if (state is CardDeckDealing) {
-      log.info('CardHandWidget - _buildContent - CardDeckDealing');
-      return GestureDetector(
-        onTap: () => log.info('CardHandWidget - _buildContent - CardDeckDealing - TAP'),
-        child: CardWidget(),
+      cardCount = state.hand.length;
+    }
+
+    List<Widget> newCardStack = [];
+    for (var cardNumber = 0; cardNumber < cardCount; cardNumber++) {
+      newCardStack.add(
+        Positioned(
+          top: 0,
+          left: cardNumber * widget.cardDimensions.width,
+          width: widget.cardDimensions.width,
+          height: widget.cardDimensions.height,
+          child: CardWidget(),
+        ),
       );
     }
 
-    log.info('CardHandWidget - _buildContent - Default');
+    log.info('CardHandWidget - _buildCardHand - Cards in hand ${newCardStack.length}');
 
-    return GestureDetector(
-      onTap: () => log.info('CardHandWidget - _buildContent - Default - TAP'),
-      child: CardWidget(),
-    );
+    setState(() {
+      cardStack = newCardStack;
+    });
   }
 
   @override
@@ -65,15 +65,16 @@ class _CardHandWidgetState extends State<CardHandWidget> {
         log.info('CardHandWidget - Listen when called');
         return true;
       },
-      listener: (context, state) => null,
+      listener: (context, state) {
+        log.fine('CardHandWidget - listener');
+        if (state is CardDeckDealing || state is CardDeckReady) {
+          log.fine('CardHandWidget - listener - dealing or ready');
+          _buildCardHand(context, state);
+        }
+      },
       builder: (BuildContext context, CardDeckState state) {
-        return Container(
-          child: MouseRegion(
-            cursor: state is CardDeckReady || state is CardDeckInitial
-                ? SystemMouseCursors.click
-                : SystemMouseCursors.forbidden,
-            child: _buildContent(context, state),
-          ),
+        return Stack(
+          children: cardStack,
         );
       },
     );

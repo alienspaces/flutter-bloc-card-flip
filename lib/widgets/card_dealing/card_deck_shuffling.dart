@@ -72,25 +72,15 @@ class CardDeckShufflingWidget extends StatefulWidget {
 
 class _CardDeckShufflingWidgetState extends State<CardDeckShufflingWidget>
     with SingleTickerProviderStateMixin {
+  // Animation controller is essentially an animation
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 200),
     vsync: this,
   );
+  // The current stack of widgets being displayed
   List<Widget> cardStack = [];
 
-  @override
-  void initState() {
-    final log = getLogger('CardDeckShufflingWidget');
-    log.fine('CardDeckShufflingWidget - initState');
-
-    _controller.addListener(() {
-      log.fine('CardDeckShufflingWidget - controller - listening');
-    });
-
-    super.initState();
-  }
-
-  Future<void> _playAnimation() async {
+  Future<void> _animateDeckShuffling() async {
     Widget animatedCardWidget = CardDeckShufflingAnimation(
       boardDimensions: widget.boardDimensions,
       cardDimensions: widget.cardDimensions,
@@ -104,24 +94,24 @@ class _CardDeckShufflingWidgetState extends State<CardDeckShufflingWidget>
       child: CardWidget(),
     );
 
-    List<Widget> startShuffleStack = [
+    List<Widget> cardOutStack = [
       cardWidget,
       animatedCardWidget,
     ];
 
-    List<Widget> endtShuffleStack = [
+    List<Widget> cardInStack = [
       animatedCardWidget,
       cardWidget,
     ];
 
     try {
-      for (var count = 0; count < 10; count++) {
+      for (var count = 0; count < 5; count++) {
         setState(() {
-          cardStack = startShuffleStack;
+          cardStack = cardOutStack;
         });
         await _controller.forward().orCancel;
         setState(() {
-          cardStack = endtShuffleStack;
+          cardStack = cardInStack;
         });
         await _controller.reverse().orCancel;
       }
@@ -154,7 +144,7 @@ class _CardDeckShufflingWidgetState extends State<CardDeckShufflingWidget>
         log.fine('CardDeckShufflingWidget - listener');
         if (state is CardDeckShuffling) {
           log.fine('CardDeckShufflingWidget - listener - Start animation');
-          _playAnimation();
+          _animateDeckShuffling();
         }
       },
       buildWhen: (previous, current) {
