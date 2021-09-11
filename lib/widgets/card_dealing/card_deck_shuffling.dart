@@ -73,9 +73,10 @@ class CardDeckShufflingWidget extends StatefulWidget {
 class _CardDeckShufflingWidgetState extends State<CardDeckShufflingWidget>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 400),
+    duration: const Duration(milliseconds: 200),
     vsync: this,
   );
+  List<Widget> cardStack = [];
 
   @override
   void initState() {
@@ -90,9 +91,40 @@ class _CardDeckShufflingWidgetState extends State<CardDeckShufflingWidget>
   }
 
   Future<void> _playAnimation() async {
+    Widget animatedCardWidget = CardDeckShufflingAnimation(
+      boardDimensions: widget.boardDimensions,
+      cardDimensions: widget.cardDimensions,
+      controller: _controller,
+    );
+    Widget cardWidget = Positioned(
+      bottom: 0,
+      left: widget.boardDimensions.width / 3,
+      width: widget.cardDimensions.width,
+      height: widget.cardDimensions.height,
+      child: CardWidget(),
+    );
+
+    List<Widget> startShuffleStack = [
+      cardWidget,
+      animatedCardWidget,
+    ];
+
+    List<Widget> endtShuffleStack = [
+      animatedCardWidget,
+      cardWidget,
+    ];
+
     try {
-      await _controller.forward().orCancel;
-      await _controller.reverse().orCancel;
+      for (var count = 0; count < 10; count++) {
+        setState(() {
+          cardStack = startShuffleStack;
+        });
+        await _controller.forward().orCancel;
+        setState(() {
+          cardStack = endtShuffleStack;
+        });
+        await _controller.reverse().orCancel;
+      }
     } on TickerCanceled {
       // the animation got canceled, probably because it was disposed of
     }
@@ -132,10 +164,8 @@ class _CardDeckShufflingWidgetState extends State<CardDeckShufflingWidget>
       builder: (BuildContext context, CardDeckState state) {
         log.fine('CardDeckShufflingWidget - builder - Building..');
 
-        return CardDeckShufflingAnimation(
-          boardDimensions: widget.boardDimensions,
-          cardDimensions: widget.cardDimensions,
-          controller: _controller,
+        return Stack(
+          children: cardStack,
         );
       },
     );
