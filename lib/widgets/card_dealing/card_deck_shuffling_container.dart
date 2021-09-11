@@ -22,7 +22,12 @@ class _CardDeckShufflingContainerWidgetState extends State<CardDeckShufflingCont
     log.info('CardDeckShufflingContainerWidget - Building..');
 
     return Stack(
-      children: [CardDeckShufflingWidget(cardDimensions: widget.cardDimensions)],
+      children: [
+        CardDeckShufflingWidget(
+          boardDimensions: widget.boardDimensions,
+          cardDimensions: widget.cardDimensions,
+        ),
+      ],
     );
   }
 }

@@ -88,13 +88,13 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
                   ),
                 ),
                 Container(
-                  child: CardDeckContainerWidget(
+                  child: CardDeckShufflingContainerWidget(
                     boardDimensions: boardDimensions,
                     cardDimensions: cardDimensions,
                   ),
                 ),
                 Container(
-                  child: CardDeckShufflingContainerWidget(
+                  child: CardDeckContainerWidget(
                     boardDimensions: boardDimensions,
                     cardDimensions: cardDimensions,
                   ),

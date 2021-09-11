@@ -7,22 +7,23 @@ import 'package:flutter_bloc_exploration/cubit/card_deck/card_deck_cubit.dart';
 import 'package:flutter_bloc_exploration/widgets/card_dealing/card.dart';
 
 class CardDeckShufflingAnimation extends StatelessWidget {
+  final Size boardDimensions;
+  final Size cardDimensions;
   final AnimationController controller;
   final Animation<double> position;
-  final Size cardDimensions;
 
-  CardDeckShufflingAnimation({Key? key, required this.controller, required this.cardDimensions})
-      : position = Tween<double>(
+  CardDeckShufflingAnimation({
+    Key? key,
+    required this.boardDimensions,
+    required this.cardDimensions,
+    required this.controller,
+  })  : position = Tween<double>(
           begin: 0.0,
           end: 1.0,
         ).animate(
           CurvedAnimation(
             parent: controller,
-            curve: Interval(
-              0.0,
-              0.100,
-              curve: Curves.ease,
-            ),
+            curve: Curves.easeInOut,
           ),
         ),
         super(key: key);
@@ -36,7 +37,7 @@ class CardDeckShufflingAnimation extends StatelessWidget {
 
     return Positioned(
       bottom: 0,
-      left: position.value,
+      left: (position.value * cardDimensions.width) + (boardDimensions.width / 3),
       width: cardDimensions.width,
       height: cardDimensions.height,
       child: child!,
@@ -46,7 +47,7 @@ class CardDeckShufflingAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final log = getLogger('CardDeckShufflingAnimation');
-    log.info('CardDeckShufflingAnimation - build');
+    log.fine('CardDeckShufflingAnimation - build');
 
     return AnimatedBuilder(
       builder: _buildAnimation,
@@ -59,9 +60,11 @@ class CardDeckShufflingAnimation extends StatelessWidget {
 }
 
 class CardDeckShufflingWidget extends StatefulWidget {
+  final Size boardDimensions;
   final Size cardDimensions;
 
-  CardDeckShufflingWidget({Key? key, required this.cardDimensions}) : super(key: key);
+  CardDeckShufflingWidget({Key? key, required this.boardDimensions, required this.cardDimensions})
+      : super(key: key);
 
   @override
   _CardDeckShufflingWidgetState createState() => _CardDeckShufflingWidgetState();
@@ -70,17 +73,17 @@ class CardDeckShufflingWidget extends StatefulWidget {
 class _CardDeckShufflingWidgetState extends State<CardDeckShufflingWidget>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 1),
+    duration: const Duration(milliseconds: 400),
     vsync: this,
   );
 
   @override
   void initState() {
     final log = getLogger('CardDeckShufflingWidget');
-    log.info('CardDeckShufflingWidget - initState');
+    log.fine('CardDeckShufflingWidget - initState');
 
     _controller.addListener(() {
-      log.info('CardDeckShufflingWidget - controller - listening');
+      log.fine('CardDeckShufflingWidget - controller - listening');
     });
 
     super.initState();
@@ -104,34 +107,35 @@ class _CardDeckShufflingWidgetState extends State<CardDeckShufflingWidget>
   @override
   Widget build(BuildContext context) {
     final log = getLogger('CardDeckShufflingWidget - build');
-    log.info('CardDeckShufflingWidget - build- Building..');
+    log.fine('CardDeckShufflingWidget - build- Building..');
 
     return BlocConsumer<CardDeckCubit, CardDeckState>(
       listenWhen: (previous, current) {
-        log.info('CardDeckShufflingWidget - listenWhen');
+        log.fine('CardDeckShufflingWidget - listenWhen');
         if (current is CardDeckShuffling) {
-          log.info('CardDeckShufflingWidget - listenWhen - true');
+          log.fine('CardDeckShufflingWidget - listenWhen - true');
           return true;
         }
         return false;
       },
       listener: (context, state) {
-        log.info('CardDeckShufflingWidget - listener');
+        log.fine('CardDeckShufflingWidget - listener');
         if (state is CardDeckShuffling) {
-          log.info('CardDeckShufflingWidget - listener - Start animation');
+          log.fine('CardDeckShufflingWidget - listener - Start animation');
           _playAnimation();
         }
       },
       buildWhen: (previous, current) {
-        log.info('CardDeckShufflingWidget - buildWhen');
+        log.fine('CardDeckShufflingWidget - buildWhen');
         return false;
       },
       builder: (BuildContext context, CardDeckState state) {
-        log.info('CardDeckShufflingWidget - builder - Building..');
+        log.fine('CardDeckShufflingWidget - builder - Building..');
 
         return CardDeckShufflingAnimation(
-          controller: _controller,
+          boardDimensions: widget.boardDimensions,
           cardDimensions: widget.cardDimensions,
+          controller: _controller,
         );
       },
     );
