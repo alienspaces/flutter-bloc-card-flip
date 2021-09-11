@@ -18,8 +18,8 @@ class CardDeckDealingContainerWidget extends StatefulWidget {
 class _CardDeckDealingContainerWidgetState extends State<CardDeckDealingContainerWidget> {
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardDeckWidget - build');
-    log.info('Building..');
+    final log = getLogger('CardDeckDealingContainerWidget');
+    log.info('CardDeckDealingContainerWidget - Building..');
 
     return CardDeckDealingWidget(
       boardDimensions: widget.boardDimensions,

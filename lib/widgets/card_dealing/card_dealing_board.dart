@@ -8,7 +8,7 @@ import 'package:flutter_bloc_exploration/data/card_repository.dart';
 import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_container.dart';
 import 'package:flutter_bloc_exploration/widgets/card_dealing/card_hand_container.dart';
 import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_shuffling_container.dart';
-// import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_dealing_container.dart';
+import 'package:flutter_bloc_exploration/widgets/card_dealing/card_deck_dealing_container.dart';
 
 // The card board lays out a board of cards
 class CardDealingBoardWidget extends StatefulWidget {
@@ -78,7 +78,6 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
           return Container(
             width: containerWidth,
             height: containerHeight,
-            decoration: BoxDecoration(border: Border.all(color: Colors.yellow, width: 3)),
             child: Stack(
               children: [
                 Container(
@@ -102,17 +101,15 @@ class _CardDealingBoardWidgetState extends State<CardDealingBoardWidget> {
                     ),
                   ),
                 ),
-                // Positioned(
-                //   top: 0,
-                //   left: 0,
-                //   child: Container(
-                //     alignment: Alignment.bottomCenter,
-                //     child: CardDeckDealingContainerWidget(
-                //       boardDimensions: boardDimensions,
-                //       cardDimensions: cardDimensions,
-                //     ),
-                //   ),
-                // )
+                IgnorePointer(
+                  ignoring: true,
+                  child: Container(
+                    child: CardDeckDealingContainerWidget(
+                      boardDimensions: boardDimensions,
+                      cardDimensions: cardDimensions,
+                    ),
+                  ),
+                )
               ],
             ),
           );

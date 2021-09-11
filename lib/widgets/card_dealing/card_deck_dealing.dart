@@ -9,38 +9,48 @@ import 'package:flutter_bloc_exploration/widgets/card_dealing/card.dart';
 class CardDeckDealingAnimation extends StatelessWidget {
   final Size boardDimensions;
   final Size cardDimensions;
+  final int cardNumber;
   final AnimationController controller;
-  final Animation<double> position;
 
   CardDeckDealingAnimation({
     Key? key,
     required this.boardDimensions,
     required this.cardDimensions,
+    required this.cardNumber,
     required this.controller,
-  })  : position = Tween<double>(
-          begin: 0.0,
-          end: 1.0,
-        ).animate(
-          CurvedAnimation(
-            parent: controller,
-            curve: Curves.easeInOut,
-          ),
-        ),
-        super(key: key);
+  }) : super(key: key);
 
   // This function is called each time the controller "ticks" a new frame.
   // When it runs, all of the animation's values will have been
   // updated to reflect the controller's current value.
-  Widget _buildAnimation(BuildContext context, Widget? child) {
+  Widget _buildAnimation(BuildContext context) {
     final log = getLogger('CardDeckDealingAnimation');
-    log.info('CardDeckDealingAnimation - _buildAnimation - position value ${position.value}');
+    log.info('CardDeckDealingAnimation - _buildAnimation - card number $cardNumber');
 
-    return Positioned(
-      bottom: 0,
-      left: (position.value * cardDimensions.width) + (boardDimensions.width / 3),
-      width: cardDimensions.width,
-      height: cardDimensions.height,
-      child: child!,
+    double cardStartLeft = boardDimensions.width / 3;
+    double cardStartTop = boardDimensions.height - cardDimensions.height;
+    double cardEndLeft = cardNumber * cardDimensions.width;
+    double cardEndTop = 0;
+
+    log.info('CardDeckDealingAnimation - _buildAnimation - cardStartLeft $cardStartLeft');
+    log.info('CardDeckDealingAnimation - _buildAnimation - cardStartTop $cardStartTop');
+    log.info('CardDeckDealingAnimation - _buildAnimation - cardEndLeft $cardEndLeft');
+    log.info('CardDeckDealingAnimation - _buildAnimation - cardEndTop $cardEndTop');
+
+    return PositionedTransition(
+      rect: RelativeRectTween(
+          begin: RelativeRect.fromSize(
+            Rect.fromLTWH(cardStartLeft, cardStartTop, cardDimensions.width, cardDimensions.height),
+            boardDimensions,
+          ),
+          end: RelativeRect.fromSize(
+            Rect.fromLTWH(cardEndLeft, cardEndTop, cardDimensions.width, cardDimensions.height),
+            boardDimensions,
+          )).animate(CurvedAnimation(
+        parent: controller,
+        curve: Curves.linear,
+      )),
+      child: CardWidget(),
     );
   }
 
@@ -49,13 +59,7 @@ class CardDeckDealingAnimation extends StatelessWidget {
     final log = getLogger('CardDeckDealingAnimation');
     log.fine('CardDeckDealingAnimation - build');
 
-    return AnimatedBuilder(
-      builder: _buildAnimation,
-      animation: controller,
-      child: Container(
-        child: CardWidget(),
-      ),
-    );
+    return _buildAnimation(context);
   }
 }
 
@@ -74,47 +78,33 @@ class _CardDeckDealingWidgetState extends State<CardDeckDealingWidget>
     with SingleTickerProviderStateMixin {
   // Animation controller is essentially an animation
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 200),
+    duration: const Duration(milliseconds: 500),
     vsync: this,
   );
   // The current stack of widgets being displayed
   List<Widget> cardStack = [];
 
-  Future<void> _animateDeckDealing() async {
+  Future<void> _animateDeckDealing(BuildContext context, CardDeckDealing state) async {
     Widget animatedCardWidget = CardDeckDealingAnimation(
       boardDimensions: widget.boardDimensions,
       cardDimensions: widget.cardDimensions,
+      cardNumber: state.hand.length,
       controller: _controller,
     );
-    Widget cardWidget = Positioned(
-      bottom: 0,
-      left: widget.boardDimensions.width / 3,
-      width: widget.cardDimensions.width,
-      height: widget.cardDimensions.height,
-      child: CardWidget(),
-    );
 
-    List<Widget> cardOutStack = [
-      cardWidget,
+    List<Widget> cardDealingStack = [
       animatedCardWidget,
-    ];
-
-    List<Widget> cardInStack = [
-      animatedCardWidget,
-      cardWidget,
     ];
 
     try {
-      for (var count = 0; count < 5; count++) {
-        setState(() {
-          cardStack = cardOutStack;
-        });
-        await _controller.forward().orCancel;
-        setState(() {
-          cardStack = cardInStack;
-        });
-        await _controller.reverse().orCancel;
-      }
+      setState(() {
+        cardStack = cardDealingStack;
+      });
+      await _controller.forward().orCancel;
+      setState(() {
+        cardStack = [];
+      });
+      _controller.reset();
     } on TickerCanceled {
       // the animation got canceled, probably because it was disposed of
     }
@@ -144,7 +134,7 @@ class _CardDeckDealingWidgetState extends State<CardDeckDealingWidget>
         log.fine('CardDeckDealingWidget - listener');
         if (state is CardDeckDealing) {
           log.fine('CardDeckDealingWidget - listener - Start animation');
-          _animateDeckDealing();
+          _animateDeckDealing(context, state);
         }
       },
       buildWhen: (previous, current) {

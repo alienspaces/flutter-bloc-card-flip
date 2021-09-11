@@ -45,9 +45,10 @@ class CardDeckCubit extends Cubit<CardDeckState> {
     log.info('Emitting card deck dealing ${this.deck.length}');
     emit(CardDeckDealing(deck: this.deck, hand: this.hand, card: card));
 
-    this.hand.add(card);
-
-    log.info('Emitting card deck ready');
-    emit(CardDeckReady(deck: this.deck, hand: this.hand));
+    Future.delayed(Duration(milliseconds: 500), () {
+      this.hand.add(card);
+      log.info('Emitting card deck ready');
+      emit(CardDeckReady(deck: this.deck, hand: this.hand));
+    });
   }
 }
