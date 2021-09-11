@@ -1,6 +1,6 @@
 # Flutter Bloc Card Flip
 
-❗ Project on hold ~ August 9th 2021 ❗
+❗ Project considered done ~ September 11th 2021 ❗
 
 An exploration of game card dealing and flipping actions using Flutter BloC state management.
 
@@ -13,8 +13,3 @@ An exploration of game card dealing and flipping actions using Flutter BloC stat
 All merges to the `master` branch run through automated tests followed by an automated web build and push to the `publish` branch which contains the current source for the above mentioned web application!
 
 Push from local with automated production deployment as you would expect!
-
-## TODO
-
-- Dealing cards
-- Shuffling cards
