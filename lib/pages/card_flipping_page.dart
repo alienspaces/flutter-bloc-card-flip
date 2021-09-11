@@ -20,7 +20,7 @@ class CardFlippingPage extends Page {
     return MaterialPageRoute(
       settings: this,
       builder: (BuildContext context) {
-        return CardBoardScreen(
+        return CardFlippingScreen(
           callbacks: callbacks,
         );
       },
@@ -28,20 +28,19 @@ class CardFlippingPage extends Page {
   }
 }
 
-// Card board
-class CardBoardScreen extends StatefulWidget {
+class CardFlippingScreen extends StatefulWidget {
   final NavigationCallbacks callbacks;
 
-  CardBoardScreen({
+  CardFlippingScreen({
     Key? key,
     required this.callbacks,
   }) : super(key: key);
 
   @override
-  _CardBoardScreenState createState() => _CardBoardScreenState();
+  _CardFlippingScreenState createState() => _CardFlippingScreenState();
 }
 
-class _CardBoardScreenState extends State<CardBoardScreen> {
+class _CardFlippingScreenState extends State<CardFlippingScreen> {
   @override
   Widget build(BuildContext context) {
     final log = getLogger('CardFlippingPage - build');

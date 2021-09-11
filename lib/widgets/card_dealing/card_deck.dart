@@ -14,27 +14,71 @@ class CardDeckWidget extends StatefulWidget {
 }
 
 class _CardDeckWidgetState extends State<CardDeckWidget> {
+  void _shuffleDeck(BuildContext context) {
+    final cardDeckCubit = BlocProvider.of<CardDeckCubit>(context);
+    cardDeckCubit.shuffleDeck();
+  }
+
+  void _dealCard(BuildContext context) {
+    final cardDeckCubit = BlocProvider.of<CardDeckCubit>(context);
+    cardDeckCubit.dealCard();
+  }
+
   _buildContent(BuildContext context, CardDeckState state) {
+    final log = getLogger('CardDeckWidget');
+    log.info('CardDeckWidget - _buildContent');
+
     if (state is CardDeckInitial) {
-      return CardWidget();
+      log.info('CardDeckWidget - _buildContent - CardDeckInitial');
+      return GestureDetector(
+        onTap: () {
+          log.info('CardDeckWidget - _buildContent - CardDeckInitial - TAP');
+          _shuffleDeck(context);
+        },
+        child: CardWidget(),
+      );
     }
+    if (state is CardDeckShuffling) {
+      log.info('CardDeckWidget - _buildContent - CardDeckShuffling');
+      return GestureDetector(
+        onTap: () => log.info('CardDeckWidget - _buildContent - CardDeckShuffling - TAP'),
+        child: CardWidget(),
+      );
+    }
+    if (state is CardDeckReady) {
+      log.info('CardDeckWidget - _buildContent - CardDeckReady');
+      return GestureDetector(
+        onTap: () {
+          log.info('CardDeckWidget - _buildContent - CardDeckReady - TAP');
+          _dealCard(context);
+        },
+        child: CardWidget(),
+      );
+    }
+    if (state is CardDeckDealing) {
+      log.info('CardDeckWidget - _buildContent - CardDeckDealing');
+      return GestureDetector(
+        onTap: () => log.info('CardDeckWidget - _buildContent - CardDeckDealing - TAP'),
+        child: CardWidget(),
+      );
+    }
+
+    log.info('CardDeckWidget - _buildContent - Default');
+
     return GestureDetector(
-      onTap: () => null,
-      child: Container(
-        color: Colors.orange,
-        child: Text('Card Deck'),
-      ),
+      onTap: () => log.info('CardDeckWidget - _buildContent - Default - TAP'),
+      child: CardWidget(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final log = getLogger('CardDeckWidget - build');
-    log.info('Building..');
+    final log = getLogger('CardDeckWidget');
+    log.info('CardDeckWidget- Building..');
 
     return BlocConsumer<CardDeckCubit, CardDeckState>(
       listenWhen: (previousState, state) {
-        log.info('Listen when called');
+        log.info('CardDeckWidget - Listen when called');
         return true;
       },
       listener: (context, state) => null,

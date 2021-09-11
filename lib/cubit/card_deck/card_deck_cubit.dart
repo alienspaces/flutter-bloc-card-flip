@@ -14,13 +14,14 @@ class CardDeckCubit extends Cubit<CardDeckState> {
   final CardRepository _cardRepository;
   final int cardCount;
   List<CardModel> deck = [];
+  List<CardModel> hand = [];
 
   CardDeckCubit(this._cardRepository, this.cardCount) : super(CardDeckInitial());
 
   Future<void> shuffleDeck() async {
     final log = getLogger('CardDeckCubit - shuffleDeck');
 
-    log.info('Emitting card deck flipping');
+    log.info('Emitting card deck shuffling');
     emit(CardDeckShuffling());
 
     for (var i = 0; i < this.cardCount; i++) {
@@ -28,19 +29,26 @@ class CardDeckCubit extends Cubit<CardDeckState> {
     }
 
     log.info('Emitting card deck ready');
-    emit(CardDeckReady(deck: this.deck));
+    emit(CardDeckReady(deck: this.deck, hand: this.hand));
   }
 
   Future<void> dealCard() async {
     final log = getLogger('CardCubit - dealCard');
 
-    CardModel card = this.deck[this.deck.length];
-    this.deck.removeLast();
+    if (this.deck.length == 0) {
+      log.info('Deck is empty, cannot deal more cards');
+      return;
+    }
 
-    log.info('Emitting card deck dealing');
-    emit(CardDeckDealing(deck: this.deck, card: card));
+    CardModel card = this.deck.removeLast();
 
-    log.info('Emitting card deck ready');
-    emit(CardDeckReady(deck: this.deck));
+    log.info('Emitting card deck dealing ${this.deck.length}');
+    emit(CardDeckDealing(deck: this.deck, hand: this.hand, card: card));
+
+    Future.delayed(Duration(milliseconds: 500), () {
+      this.hand.add(card);
+      log.info('Emitting card deck ready');
+      emit(CardDeckReady(deck: this.deck, hand: this.hand));
+    });
   }
 }

@@ -28,7 +28,6 @@ class CardDealingPage extends Page {
   }
 }
 
-// Card search page is child of provider
 class CardDealScreen extends StatefulWidget {
   final NavigationCallbacks callbacks;
   static String pageName = 'CardDeal';

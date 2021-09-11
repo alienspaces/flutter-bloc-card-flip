@@ -1,5 +1,7 @@
 # Flutter Bloc Card Flip
 
+❗ Project on hold ~ August 9th 2021 ❗
+
 An exploration of game card dealing and flipping actions using Flutter BloC state management.
 
 ## Web Application

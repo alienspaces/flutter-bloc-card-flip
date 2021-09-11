@@ -21,8 +21,9 @@ class CardDeckShuffling extends CardDeckState {
 
 class CardDeckDealing extends CardDeckState {
   final List<CardModel> deck;
+  final List<CardModel> hand;
   final CardModel card;
-  const CardDeckDealing({required this.deck, required this.card});
+  const CardDeckDealing({required this.deck, required this.hand, required this.card});
 
   @override
   List<Object> get props => [deck, card];
@@ -30,7 +31,8 @@ class CardDeckDealing extends CardDeckState {
 
 class CardDeckReady extends CardDeckState {
   final List<CardModel> deck;
-  const CardDeckReady({required this.deck});
+  final List<CardModel> hand;
+  const CardDeckReady({required this.deck, required this.hand});
 
   @override
   List<Object> get props => [deck];
